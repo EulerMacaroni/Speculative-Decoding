@@ -146,6 +146,17 @@ class MCMCProcessor(LogitsProcessor):
 
         return new_logits.view(*logits.shape)  # Return with the same shape
 
-    def sample(self, probs: Tensor) -> Tensor:
-        """Standard multinomial sampling from filtered probabilities."""
-        return torch.multinomial(probs, num_samples=1)
+    def sample(self, probs: Tensor) -> int:
+        """Standard multinomial sampling from filtered probabilities.
+
+        Supports both 1D [vocab_size] and 2D [1, vocab_size] inputs.
+        """
+        if probs.dim() == 1:
+            # If probs is [vocab_size]
+            return torch.multinomial(probs, num_samples=1).item()
+        elif probs.dim() == 2 and probs.size(0) == 1:
+            # If probs is [1, vocab_size]
+            return torch.multinomial(probs, num_samples=1).squeeze(0).item()
+        else:
+            raise ValueError(f"Expected input shape [vocab_size] or [1, vocab_size], got {probs.shape}")
+
