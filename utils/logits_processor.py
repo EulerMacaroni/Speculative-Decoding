@@ -1,4 +1,5 @@
 import abc
+
 import torch
 from torch import Tensor
 from torch.nn import functional as F
@@ -79,8 +80,8 @@ class NucleusProcessor(MultinomialProcessor):
         sorted_logits[sorted_indices_to_remove] = -1e20
         logits = torch.gather(sorted_logits, -1, sorted_indices.argsort(-1))
         return logits
-    
-    
+
+
 class TopKNucleusProcessor(MultinomialProcessor):
     """Top-k and nucleus: Top-k sampling with top-p fallback."""
 
@@ -101,3 +102,50 @@ class TopKNucleusProcessor(MultinomialProcessor):
         sorted_logits[sorted_indices_to_remove] = -1e20
         logits = torch.gather(sorted_logits, -1, sorted_indices.argsort(-1))
         return logits
+
+
+class MCMCProcessor(LogitsProcessor):
+    """MCMC: Markov Chain Monte Carlo token filtering."""
+
+    def __init__(self, temperature: float = 1.0, num_steps: int = 100):
+        super().__init__(temperature)
+        self.num_steps = num_steps
+
+    def _process(self, logits: Tensor) -> Tensor:
+        """
+        All others are suppressed with large negative values (like -1e20).
+        """
+        logits = logits.view(
+            -1, logits.size(-1)
+        )  # Support inputs like [1, gamma, vocab]
+        batch_size, vocab_size = logits.shape
+        device = logits.device
+
+        probs = F.softmax(logits / self.temperature, dim=-1)
+
+        current_tokens = torch.randint(0, vocab_size, (batch_size,), device=device)
+
+        for _ in range(self.num_steps):
+            noise = torch.normal(
+                mean=0.0, std=vocab_size / 10.0, size=(batch_size,), device=device
+            ).long()
+            proposed_tokens = torch.clamp(current_tokens + noise, 0, vocab_size - 1)
+
+            p_current = probs[torch.arange(batch_size), current_tokens]
+            p_proposed = probs[torch.arange(batch_size), proposed_tokens]
+
+            accept_ratio = (p_proposed / (p_current + 1e-9)).clamp(max=1.0)
+            accept = torch.rand(batch_size, device=device) < accept_ratio
+
+            current_tokens = torch.where(accept, proposed_tokens, current_tokens)
+
+        new_logits = torch.full_like(logits, fill_value=-1e20)
+        new_logits[torch.arange(batch_size), current_tokens] = logits[
+            torch.arange(batch_size), current_tokens
+        ]
+
+        return new_logits.view(*logits.shape)  # Return with the same shape
+
+    def sample(self, probs: Tensor) -> Tensor:
+        """Standard multinomial sampling from filtered probabilities."""
+        return torch.multinomial(probs, num_samples=1)

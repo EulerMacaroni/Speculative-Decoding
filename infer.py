@@ -8,24 +8,17 @@ import torch
 from termcolor import colored
 from transformers import AutoModelForCausalLM, AutoTokenizer, QuantoConfig
 
-from ngram_assisted import (
-    NGramStorage,
-    OneLevelNGramStorage,
-    ngram_assisted_speculative_generate,
-)
+from ngram_assisted import (NGramStorage, OneLevelNGramStorage,
+                            ngram_assisted_speculative_generate)
 from sampling import autoregressive_generate, speculative_generate
-from utils.logits_processor import (
-    GreedyProcessor,
-    MultinomialProcessor,
-    NucleusProcessor,
-    TopKNucleusProcessor,
-    TopKProcessor,
-)
+from utils.logits_processor import (GreedyProcessor, MCMCProcessor,
+                                    MultinomialProcessor, NucleusProcessor,
+                                    TopKNucleusProcessor, TopKProcessor)
 
 
 class InferenceCLI:
 
-    def __init__(self, device: str = "cuda"):
+    def __init__(self, device: str = "cuda" if torch.cuda.is_available() else "cpu"):
         print(
             colored("Speculative Decoding", "red"),
             colored("CLI", on_color="on_red", color="white"),
@@ -70,6 +63,10 @@ class InferenceCLI:
                 "processor": TopKNucleusProcessor,
                 "building_args": {"temperature": float, "top_k": int, "top_p": float},
             },
+            "mcmc": {
+                "processor": MCMCProcessor,
+                "building_args": {"temperature": float, "num_steps": int},
+            },
         }
         self.selected_processor = {
             "name": "greedy",
@@ -78,6 +75,12 @@ class InferenceCLI:
         }
         self.processor = GreedyProcessor()
 
+        # self.selected_processor = {
+        #     "name": "mcmc",
+        #     "processor": MCMCProcessor,
+        #     "args": {"temperature": 1.0, "num_steps": 10},
+        # }
+        # self.processor = MCMCProcessor()
         self._load_models()
         self._run()
 
@@ -132,7 +135,9 @@ class InferenceCLI:
 
         self.end_tokens = [
             self.tokenizer.eos_token_id,
-            self.tokenizer.convert_tokens_to_ids("<|eot_id|>"),
+            self.tokenizer.convert_tokens_to_ids(
+                "<|eot_id|>"
+            ),  # For gpt models end.tokens = [tokenizer.eos_token_id]
         ]  # "<|eot_id|>" is the end of turn token for Llama model.
 
     def _perform_command(self, command: str):
@@ -461,7 +466,10 @@ class InferenceCLI:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Speculative Decoding CLI")
     parser.add_argument(
-        "--device", type=str, default="cuda", help="Device to use for inference"
+        "--device",
+        type=str,
+        default="cuda" if torch.cuda.is_available() else "cpu",
+        help="Device to use for inference",
     )
     args = parser.parse_args()
 
