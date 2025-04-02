@@ -1,18 +1,26 @@
 import argparse
+import os
 import random
+import time
+
 import numpy as np
 import torch
-from sampling import autoregressive_generate, speculative_generate
-from ngram_assisted import OneLevelNGramStorage, NGramStorage, ngram_assisted_speculative_generate
-from utils.logits_processor import GreedyProcessor, MultinomialProcessor, TopKProcessor, NucleusProcessor, TopKNucleusProcessor
-from transformers import (
-    AutoTokenizer,
-    AutoModelForCausalLM,
-    QuantoConfig,
-)
-import time
-import os
 from termcolor import colored
+from transformers import AutoModelForCausalLM, AutoTokenizer, QuantoConfig
+
+from ngram_assisted import (
+    NGramStorage,
+    OneLevelNGramStorage,
+    ngram_assisted_speculative_generate,
+)
+from sampling import autoregressive_generate, speculative_generate
+from utils.logits_processor import (
+    GreedyProcessor,
+    MultinomialProcessor,
+    NucleusProcessor,
+    TopKNucleusProcessor,
+    TopKProcessor,
+)
 
 
 class InferenceCLI:
@@ -38,9 +46,9 @@ class InferenceCLI:
         self.top_k_filler = 3
         self.ngram_n = 3
         self.reset_in_between = True
-        
-        self.chat = True # If using a chat instructed model, set to True
-        
+
+        self.chat = True  # If using a chat instructed model, set to True
+
         self.processors = {
             "greedy": {
                 "processor": GreedyProcessor,
@@ -75,12 +83,18 @@ class InferenceCLI:
 
     def _load_models(self):
         # Target model
-        target_model = "meta-llama/Llama-3.2-3B-Instruct"
-        target_quantize = QuantoConfig(weights="int8")  # QuantoConfig(weights="int8")  None
-        
+        target_model = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+        # target_model = "meta-llama/Llama-3.2-3B-Instruct"
+        target_quantize = QuantoConfig(
+            weights="int8"
+        )  # QuantoConfig(weights="int8")  None
+
         # Drafter model
-        drafter_model = "meta-llama/Llama-3.2-1B-Instruct"
-        drafter_quantize = QuantoConfig(weights="int8")  # QuantoConfig(weights="int8") None
+        drafter_model = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+        # drafter_model = "meta-llama/Llama-3.2-1B-Instruct"
+        drafter_quantize = QuantoConfig(
+            weights="int8"
+        )  # QuantoConfig(weights="int8") None
 
         print(colored("Target model:", on_color="on_yellow"), target_model)
         print(colored("Drafter model:", on_color="on_yellow"), drafter_model)
@@ -96,8 +110,15 @@ class InferenceCLI:
 
         tokenizer_name = target_model
         if tokenizer_name != target_model:
-            print(colored("Warning: Tokenizer is different from target model. Use with caution.", "red"))
-        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, trust_remote_code=True)
+            print(
+                colored(
+                    "Warning: Tokenizer is different from target model. Use with caution.",
+                    "red",
+                )
+            )
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            tokenizer_name, trust_remote_code=True
+        )
 
         self.drafter = AutoModelForCausalLM.from_pretrained(
             drafter_model,
@@ -106,10 +127,13 @@ class InferenceCLI:
             trust_remote_code=True,
         )
         self.drafter.eval()
-        
+
         self.ngram = NGramStorage(n=3, vocab_size=self.target.config.vocab_size)
-        
-        self.end_tokens = [self.tokenizer.eos_token_id, self.tokenizer.convert_tokens_to_ids("<|eot_id|>")] # "<|eot_id|>" is the end of turn token for Llama model.
+
+        self.end_tokens = [
+            self.tokenizer.eos_token_id,
+            self.tokenizer.convert_tokens_to_ids("<|eot_id|>"),
+        ]  # "<|eot_id|>" is the end of turn token for Llama model.
 
     def _perform_command(self, command: str):
         args = command.split(" ")
@@ -122,7 +146,11 @@ class InferenceCLI:
             return
         if args[0] == "/speculative":
             self.spec = not self.spec
-            print(colored(f"Speculative Decoding generation: {self.spec}", on_color="on_blue"))
+            print(
+                colored(
+                    f"Speculative Decoding generation: {self.spec}", on_color="on_blue"
+                )
+            )
             return
         if args[0] == "/drafter":
             self.dr = not self.dr
@@ -132,7 +160,12 @@ class InferenceCLI:
             self.cache = not self.cache
             print(colored(f"Cache: {self.cache}", on_color="on_blue"))
             if self.cache:
-                print(colored("Warning, cache feature is very unstable accross different models. It might generate errors or just perturb the generation. Use with caution.", "red"))
+                print(
+                    colored(
+                        "Warning, cache feature is very unstable accross different models. It might generate errors or just perturb the generation. Use with caution.",
+                        "red",
+                    )
+                )
             return
         if args[0] == "/target":
             self.target_gen = not self.target_gen
@@ -162,7 +195,11 @@ class InferenceCLI:
         if args[0] == "/processor":
             # /processor <processor_name> <args0> <args1> ...
             if len(args) < 2:
-                print(colored("Usage: /processor <processor_name> <args0> <args1> ...", "red"))
+                print(
+                    colored(
+                        "Usage: /processor <processor_name> <args0> <args1> ...", "red"
+                    )
+                )
                 return
             processor_name = args[1]
             if processor_name not in self.processors:
@@ -184,7 +221,11 @@ class InferenceCLI:
                     processor_args[arg_name] = arg_type(args[0])
                     print(colored(f"\t{arg_name}: {arg_type(args[0])}", "blue"))
                 except ValueError:
-                    print(colored(f"Invalid argument {arg_name} of type {arg_type}", "red"))
+                    print(
+                        colored(
+                            f"Invalid argument {arg_name} of type {arg_type}", "red"
+                        )
+                    )
                     return
                 args = args[1:]
             self.selected_processor = {
@@ -197,7 +238,11 @@ class InferenceCLI:
         # Ngram Assisted Generation
         if args[0] == "/ngram":
             self.ngram_gen = not self.ngram_gen
-            print(colored(f"Ngram assisted generation: {self.ngram_gen}", on_color="on_blue"))
+            print(
+                colored(
+                    f"Ngram assisted generation: {self.ngram_gen}", on_color="on_blue"
+                )
+            )
             return
         if args[0] == "/top_k_filler":
             if len(args) < 2:
@@ -224,7 +269,12 @@ class InferenceCLI:
             return
         if args[0] == "/reset_in_between":
             self.reset_in_between = not self.reset_in_between
-            print(colored(f"Reset ngram in between each generation: {self.reset_in_between}", on_color="on_blue"))
+            print(
+                colored(
+                    f"Reset ngram in between each generation: {self.reset_in_between}",
+                    on_color="on_blue",
+                )
+            )
             return
         print(colored("Unknown command", "red"))
         self._help()
@@ -261,18 +311,26 @@ class InferenceCLI:
         print("/set_ngramstorage <basic/onelevel> <n>: set ngramstorage drafter")
         print(colored(f"\t{self.ngram.__class__.__name__} {self.ngram_n}", "blue"))
         print("/reset_in_between: toggle reset ngram in between each generation")
-        print(colored(f"\t{self.reset_in_between}", "green" if self.reset_in_between else "red"))
-        
+        print(
+            colored(
+                f"\t{self.reset_in_between}",
+                "green" if self.reset_in_between else "red",
+            )
+        )
 
     def _infer(self, prefix: str):
         if self.chat:
-            prefix = self.tokenizer.apply_chat_template([{"role": "user", "content": prefix}], add_generation_prompt=True, tokenize=False)
-            
+            prefix = self.tokenizer.apply_chat_template(
+                [{"role": "user", "content": prefix}],
+                add_generation_prompt=True,
+                tokenize=False,
+            )
+
         tokenized = self.tokenizer(prefix, return_tensors="pt").input_ids[0].tolist()
-        
+
         if self.reset_in_between:
             self.ngram.reset()
-        
+
         spec_throughput = 0.0
         base_throughput = 0.0
         drafter_throughput = 0.0
@@ -300,7 +358,7 @@ class InferenceCLI:
             spec_throughput = len(spec_output) / (spec_end_time - spec_start_time)
             print(colored(f"Throughput: {spec_throughput:.1f} tokens/s", "green"))
             print(colored("========== Speculative ==========", "green"))
-            
+
         if self.ngram_gen:
             self._set_seed(42)
             ngram_start_time = time.time()
@@ -328,7 +386,12 @@ class InferenceCLI:
             print(colored(f"Throughput: {ngram_throughput:.1f} tokens/s", "yellow"))
             print(colored("========== Ngram Assisted ==========", "yellow"))
             if self.spec and ngram_throughput > 0.0:
-                print(colored(f"Throughput increase: {((spec_throughput / ngram_throughput)) * 100:.1f}%", "magenta"))
+                print(
+                    colored(
+                        f"Throughput increase: {((spec_throughput / ngram_throughput)) * 100:.1f}%",
+                        "magenta",
+                    )
+                )
 
         if self.target_gen:
             self._set_seed(42)
@@ -350,7 +413,12 @@ class InferenceCLI:
             print(colored(f"Throughput: {base_throughput:.1f} tokens/s", "blue"))
             print(colored("=========== Target AR ===========", "blue"))
             if self.spec and base_throughput > 0.0:
-                print(colored(f"Throughput increase: {((spec_throughput / base_throughput)) * 100:.1f}%", "magenta"))
+                print(
+                    colored(
+                        f"Throughput increase: {((spec_throughput / base_throughput)) * 100:.1f}%",
+                        "magenta",
+                    )
+                )
 
         if self.dr:
             self._set_seed(42)
@@ -373,13 +441,13 @@ class InferenceCLI:
 
     def _run(self):
         while True:
-            command = input("> ").replace('\\n', '\n').replace('\\t', '\t')
+            command = input("> ").replace("\\n", "\n").replace("\\t", "\t")
             if command.startswith("/"):
                 self._perform_command(command)
                 continue
 
             self._infer(command)
-            
+
     def _set_seed(self, seed: int):
         random.seed(seed)
         np.random.seed(seed)
@@ -392,7 +460,9 @@ class InferenceCLI:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Speculative Decoding CLI")
-    parser.add_argument("--device", type=str, default="cuda", help="Device to use for inference")
+    parser.add_argument(
+        "--device", type=str, default="cuda", help="Device to use for inference"
+    )
     args = parser.parse_args()
 
     InferenceCLI(device=args.device)
