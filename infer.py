@@ -79,18 +79,21 @@ class InferenceCLI:
         # }
         # self.processor = GreedyProcessor()
 
+        #  TwoStageSamplingProcessor set default
         self.selected_processor = {
             "name": "TwoStage",
             "processor": TwoStageSamplingProcessor,
             "args": {"temperature": 1.0, "top_k": 10, "noise_scale": 0.4},
         }
         self.processor = TwoStageSamplingProcessor()
+
         self._load_models()
         self._run()
 
     def _load_models(self):
         # Target model
         target_model = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+        # target_model = "meta-llama/Llama-2-7b-chat"
         # target_model = "meta-llama/Llama-2-7b-chat"
         target_quantize = QuantoConfig(
             weights="int8"
