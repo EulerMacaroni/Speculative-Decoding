@@ -104,59 +104,84 @@ class TopKNucleusProcessor(MultinomialProcessor):
         return logits
 
 
-class MCMCProcessor(LogitsProcessor):
-    """MCMC: Markov Chain Monte Carlo token filtering."""
-
-    def __init__(self, temperature: float = 1.0, num_steps: int = 100):
+class TypicalProcessor(LogitsProcessor):
+    """Typical Sampling: Select tokens based on how close their information content is to the expected information."""
+    def __init__(self, temperature: float = 1.0, mass: float = 0.9):
         super().__init__(temperature)
-        self.num_steps = num_steps
-
+        self.mass = mass
+    
     def _process(self, logits: Tensor) -> Tensor:
         """
-        All others are suppressed with large negative values (like -1e20).
+        Process logits using Typical Sampling.
+        All tokens with atypical information content are suppressed.
         """
-        logits = logits.view(
-            -1, logits.size(-1)
-        )  # Support inputs like [1, gamma, vocab]
+        logits = logits.view(-1, logits.size(-1))  # Support inputs like [1, gamma, vocab]
         batch_size, vocab_size = logits.shape
         device = logits.device
-
-        probs = F.softmax(logits / self.temperature, dim=-1)
-
-        current_tokens = torch.randint(0, vocab_size, (batch_size,), device=device)
-
-        for _ in range(self.num_steps):
-            noise = torch.normal(
-                mean=0.0, std=vocab_size / 10.0, size=(batch_size,), device=device
-            ).long()
-            proposed_tokens = torch.clamp(current_tokens + noise, 0, vocab_size - 1)
-
-            p_current = probs[torch.arange(batch_size), current_tokens]
-            p_proposed = probs[torch.arange(batch_size), proposed_tokens]
-
-            accept_ratio = (p_proposed / (p_current + 1e-9)).clamp(max=1.0)
-            accept = torch.rand(batch_size, device=device) < accept_ratio
-
-            current_tokens = torch.where(accept, proposed_tokens, current_tokens)
-
-        new_logits = torch.full_like(logits, fill_value=-1e20)
-        new_logits[torch.arange(batch_size), current_tokens] = logits[
-            torch.arange(batch_size), current_tokens
-        ]
-
+        
+        # Create a new tensor to store the processed logits
+        new_logits = logits.clone()
+        
+        # Process each item in the batch
+        for b in range(batch_size):
+            # Calculate token probabilities
+            probs = F.softmax(logits[b] / self.temperature, dim=-1)
+            
+            # Calculate entropy
+            log_probs = torch.log(probs + 1e-10)
+            expected_entropy = -torch.sum(probs * log_probs, dim=-1)
+            
+            # Calculate each token's contribution to entropy
+            token_entropies = -log_probs
+            
+            # Calculate how far each token is from the expected entropy
+            token_divergence = torch.abs(token_entropies - expected_entropy)
+            
+            # Sort by divergence
+            sorted_divergence, sorted_indices = torch.sort(token_divergence, dim=-1)
+            sorted_probs = probs.gather(-1, sorted_indices)
+            
+            # Keep tokens until we reach the desired probability mass
+            cumulative_probs = torch.cumsum(sorted_probs, dim=-1)
+            indices_to_keep = cumulative_probs <= self.mass
+            
+            # If nothing is kept, keep at least one token
+            if not torch.any(indices_to_keep):
+                indices_to_keep[0] = True
+            
+            # Create a mask for the tokens to keep
+            masked_divergence = torch.full_like(token_divergence, float('inf'))
+            
+            # Gather indices to keep and map back to original positions
+            keep_indices = sorted_indices[indices_to_keep]
+            masked_divergence.scatter_(-1, keep_indices, 0)
+            
+            # Apply the mask to the logits
+            new_logits[b][masked_divergence == float('inf')] = -1e20
+        
         return new_logits.view(*logits.shape)  # Return with the same shape
+    
+    def sample(self, probs: Tensor) -> Tensor:
+        """Standard multinomial sampling from filtered probabilities."""
+        return torch.multinomial(probs, num_samples=1)
 
-    def sample(self, probs: Tensor) -> int:
-        """Standard multinomial sampling from filtered probabilities.
+class TwoStageSamplingProcessor(MultinomialProcessor):
+    """Top-k selection followed by noise injection for diversity."""
+    
+    def __init__(self, temperature: float, top_k: int, noise_scale: float = 0.2):
+        super().__init__(temperature)
+        self.top_k = top_k
+        self.noise_scale = noise_scale
 
-        Supports both 1D [vocab_size] and 2D [1, vocab_size] inputs.
-        """
-        if probs.dim() == 1:
-            # If probs is [vocab_size]
-            return torch.multinomial(probs, num_samples=1).item()
-        elif probs.dim() == 2 and probs.size(0) == 1:
-            # If probs is [1, vocab_size]
-            return torch.multinomial(probs, num_samples=1).squeeze(0).item()
-        else:
-            raise ValueError(f"Expected input shape [vocab_size] or [1, vocab_size], got {probs.shape}")
-
+    def _process(self, logits: Tensor) -> Tensor:
+        # Stage 1: Select top-k
+        top_k = min(self.top_k, logits.size(-1))
+        top_logits, top_indices = torch.topk(logits, top_k, dim=-1)
+        
+        # Stage 2: Add controlled noise
+        noise = torch.randn_like(top_logits) * self.noise_scale
+        perturbed_logits = top_logits + noise
+        
+        # Reconstruct full logits tensor
+        perturbed_logits_full = torch.full_like(logits, -1e20)
+        return perturbed_logits_full.scatter(-1, top_indices, perturbed_logits)
