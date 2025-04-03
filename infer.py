@@ -11,9 +11,9 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, QuantoConfig
 from ngram_assisted import (NGramStorage, OneLevelNGramStorage,
                             ngram_assisted_speculative_generate)
 from sampling import autoregressive_generate, speculative_generate
-from utils.logits_processor import (GreedyProcessor, MCMCProcessor,
-                                    MultinomialProcessor, NucleusProcessor,
-                                    TopKNucleusProcessor, TopKProcessor)
+from utils.logits_processor import (GreedyProcessor, MultinomialProcessor,
+                                    NucleusProcessor, TopKNucleusProcessor,
+                                    TopKProcessor, TwoStageSamplingProcessor)
 
 
 class InferenceCLI:
@@ -63,31 +63,35 @@ class InferenceCLI:
                 "processor": TopKNucleusProcessor,
                 "building_args": {"temperature": float, "top_k": int, "top_p": float},
             },
-            "mcmc": {
-                "processor": MCMCProcessor,
-                "building_args": {"temperature": float, "num_steps": int},
+            "TwoStage": {
+                "processor": TwoStageSamplingProcessor,
+                "building_args": {
+                    "temperature": float,
+                    "top_k": int,
+                    "noise_scale": float,
+                },
             },
         }
-        self.selected_processor = {
-            "name": "greedy",
-            "processor": GreedyProcessor,
-            "args": {"temperature": 1.0},
-        }
-        self.processor = GreedyProcessor()
-
         # self.selected_processor = {
-        #     "name": "mcmc",
-        #     "processor": MCMCProcessor,
-        #     "args": {"temperature": 1.0, "num_steps": 10},
+        #     "name": "greedy",
+        #     "processor": GreedyProcessor,
+        #     "args": {"temperature": 1.0},
         # }
-        # self.processor = MCMCProcessor()
+        # self.processor = GreedyProcessor()
+
+        self.selected_processor = {
+            "name": "TwoStage",
+            "processor": TwoStageSamplingProcessor,
+            "args": {"temperature": 1.0, "top_k": 10, "noise_scale": 0.4},
+        }
+        self.processor = TwoStageSamplingProcessor()
         self._load_models()
         self._run()
 
     def _load_models(self):
         # Target model
         target_model = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
-        # target_model = "meta-llama/Llama-3.2-3B-Instruct"
+        # target_model = "meta-llama/Llama-2-7b-chat"
         target_quantize = QuantoConfig(
             weights="int8"
         )  # QuantoConfig(weights="int8")  None
