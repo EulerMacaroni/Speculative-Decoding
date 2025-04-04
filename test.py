@@ -90,7 +90,7 @@ target.eval()
 end_tokens = [tokenizer.eos_token_id, tokenizer.convert_tokens_to_ids("<|eot_id|>")]
 
 # Load dataset
-df = pd.read_csv("QAwithTemp.csv")
+df = pd.read_csv("data/QAwithTemp.csv")
 df = df.head(2)
 # ------------------ Evaluation Function ------------------
 
