@@ -214,6 +214,6 @@ df_results = df.apply(evaluate_row, axis=1)
 # Combine with original data
 df_final = pd.concat([df, df_results], axis=1)
 
-# Save result
-df_final.to_csv("QAwithTemp_greedy.csv", index=False)
-print("Evaluation complete. Results saved ")
+print(df_final)
+# Uncomment to save results  for {sampling_method}
+# df_final.to_csv("QAwithTemp_{process}.csv", index=False)
