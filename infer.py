@@ -83,7 +83,7 @@ class InferenceCLI:
         self.selected_processor = {
             "name": "TwoStage",
             "processor": TwoStageSamplingProcessor,
-            "args": {"temperature": 1.0, "top_k": 10, "noise_scale": 0.4},
+            "args": {"temperature": 1.0, "top_k": 10, "noise_scale": 1},
         }
         self.processor = TwoStageSamplingProcessor()
 

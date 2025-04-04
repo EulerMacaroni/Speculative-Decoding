@@ -173,12 +173,13 @@ class TwoStageSamplingProcessor(MultinomialProcessor):
     """Top-k selection followed by noise injection for diversity."""
 
     def __init__(
-        self, temperature: float = 0.8, top_k: int = 10, noise_scale: float = 0.4
+        self, temperature: float = 1, top_k: int = 10, noise_scale: float = 0.3
     ):
         """
         top_k	10-50	Controls candidate pool size (quality vs diversity balance)
         noise_scale	0.1-0.5	Governs exploration magnitude (higher = more diversity)
         temperature	0.7-1.2	Final probability sharpening (inherited from base processor)
+
         """
         super().__init__(temperature)
         self.top_k = top_k

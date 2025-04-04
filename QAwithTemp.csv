@@ -1,0 +1,31 @@
+question,answer,label,temperature
+Who was the first President of the United States?,George Washington,history,0.4
+What is 15 percent of 200?,30,math,0.3
+What is the square root of 144?,12,math,0.3
+Who was the leader of Nazi Germany?,Adolf Hitler,history,0.4
+What force keeps us on the ground?,Gravity,science,0.3
+How many planets are in the solar system?,Eight,science,0.3
+What empire built the Colosseum?,Roman Empire,history,0.4
+What is the integral of 1 over x?,ln(x),math,0.3
+What is the opposite of 'hot'?,Cold,language,0.7
+What is the longest river in the world?,Nile,geography,0.4
+What is the value of pi rounded to two decimal places?,3.14,math,0.3
+Which ocean is off the California coast?,Pacific Ocean,geography,0.4
+What does HTML stand for?,HyperText Markup Language,coding,0.4
+What is the derivative of x squared?,2x,math,0.3
+How many letters are in the English alphabet?,26,language,0.7
+Which continent is Egypt part of?,Africa,geography,0.4
+In what year did World War II end?,1945,history,0.4
+What part of speech is 'quickly'?,Adverb,language,0.7
+What is the plural of 'mouse'?,Mice,language,0.7
+What organ pumps blood through the body?,Heart,science,0.3
+What is the capital of Japan?,Tokyo,geography,0.4
+Which keyword defines a function in Python?,def,coding,0.4
+What symbol is used for comments in Python?,#,coding,0.4
+What gas do plants absorb during photosynthesis?,Carbon dioxide,science,0.3
+What is the chemical symbol for water?,H2O,science,0.3
+Who discovered penicillin?,Alexander Fleming,history,0.4
+What is a synonym for 'happy'?,Joyful,language,0.7
+What is the output of print(2 ** 3) in Python?,8,coding,0.4
+What does CSS stand for?,Cascading Style Sheets,coding,0.4
+Which country is known for the Eiffel Tower?,France,geography,0.4
