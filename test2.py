@@ -186,7 +186,7 @@ for proc_name, proc_builder in processors.items():
                 duration = time.time() - start
                 tps = len(output_ids) / duration if duration > 0 else float("inf")
                 output_text = tokenizer.decode(output_ids, skip_special_tokens=True)
-                f1 = f1_score(output_text, answer)
+                # f1 = f1_score(output_text, answer)
                 # em = exact_match(output_text, answer)
                 sim = embedding_similarity(output_text, answer, embedding_model)
                 # score = 0.6 * f1 + 0.4 * em
