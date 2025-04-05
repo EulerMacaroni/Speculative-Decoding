@@ -19,6 +19,8 @@ from utils.logits_processor import *
 
 
 def normalize_answer(s):
+    """Lower text and remove punctuation, articles, and extra whitespace."""
+
     def remove_articles(text):
         return re.sub(r"\b(a|an|the)\b", " ", text)
 
@@ -35,6 +37,7 @@ def normalize_answer(s):
 
 
 def f1_score(prediction, ground_truth):
+    """Calculate F1 score between prediction and ground truth."""
     pred_tokens = normalize_answer(prediction).split()
     gt_tokens = normalize_answer(ground_truth).split()
     common = Counter(pred_tokens) & Counter(gt_tokens)
@@ -47,13 +50,20 @@ def f1_score(prediction, ground_truth):
 
 
 def exact_match(prediction, ground_truth):
+    """Check if prediction matches ground truth exactly."""
     return normalize_answer(prediction) == normalize_answer(ground_truth)
 
 
 def embedding_similarity(pred, truth, model):
-    emb1 = model.encode([pred], convert_to_tensor=True).cpu().numpy()
-    emb2 = model.encode([truth], convert_to_tensor=True).cpu().numpy()
-    return float(cosine_similarity(emb1, emb2)[0][0])
+    emb1 = model.encode([pred], convert_to_tensor=True)
+    emb2 = model.encode([truth], convert_to_tensor=True)
+
+    # Move to CPU for sklearn
+    if emb1.device.type != "cpu":
+        emb1 = emb1.cpu()
+        emb2 = emb2.cpu()
+
+    return float(cosine_similarity(emb1.numpy(), emb2.numpy())[0][0])
 
 
 def set_seed(seed=42):
@@ -69,7 +79,8 @@ set_seed(42)
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-embedding_model = SentenceTransformer("all-MiniLM-L6-v2")
+embedding_model = SentenceTransformer("all-MiniLM-L6-v2", device=device)
+
 target_model = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
 draft_model = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
 target_quantize = QuantoConfig(weights="int8")
@@ -176,7 +187,7 @@ for proc_name, proc_builder in processors.items():
                 tps = len(output_ids) / duration if duration > 0 else float("inf")
                 output_text = tokenizer.decode(output_ids, skip_special_tokens=True)
                 f1 = f1_score(output_text, answer)
-                em = exact_match(output_text, answer)
+                # em = exact_match(output_text, answer)
                 sim = embedding_similarity(output_text, answer, embedding_model)
                 # score = 0.6 * f1 + 0.4 * em
                 score = sim
@@ -196,7 +207,7 @@ for proc_name, proc_builder in processors.items():
                 )
 
                 print(
-                    f"Model: {model_name}, Processor: {proc_name}, F1: {f1}, EM: {em}, Score: {score}, tokens/s: {tps}, Acceptance Rate: {acc_rate}"
+                    f"Model: {model_name}, Processor: {proc_name}, Score: {score}, tokens/s: {tps}, Acceptance Rate: {acc_rate}"
                 )
             except Exception as e:
                 print(
