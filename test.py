@@ -101,7 +101,7 @@ def run_model(model_name, prompt, answer_text, temperature, input_ids, max_len):
     #     top_k=10,
     #     noise_scale=0.6
     # )
-    processor = TwoStageSamplingProcessor()
+    processor = GreedyProcessor()
 
     start = time.time()
     print(model_name)
@@ -156,6 +156,9 @@ def run_model(model_name, prompt, answer_text, temperature, input_ids, max_len):
     f1 = f1_score(output_text, answer_text)
     em = exact_match(output_text, answer_text)
     score = 0.6 * f1 + 0.4 * em
+    print(
+        f"F1: {f1}, EM: {em}, Score: {score} , tokens/s : {tps}, Acceptance rate: {acc_rate}"
+    )
 
     return {
         "model_answer": output_text,
