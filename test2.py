@@ -78,9 +78,10 @@ def set_seed(seed=42):
 set_seed(42)
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-
+print(f"Using device: {device}")
 embedding_model = SentenceTransformer("all-MiniLM-L6-v2", device=device)
 
+# target_model = "meta-llama/Llama-2-7b-chat"
 target_model = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
 draft_model = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
 target_quantize = QuantoConfig(weights="int8")
@@ -191,6 +192,7 @@ for proc_name, proc_builder in processors.items():
                 sim = embedding_similarity(output_text, answer, embedding_model)
                 # score = 0.6 * f1 + 0.4 * em
                 score = sim
+                # print(score)
 
                 all_rows.append(
                     {
@@ -217,6 +219,6 @@ for proc_name, proc_builder in processors.items():
 
 # Save to CSV
 final_df = pd.DataFrame(all_rows)
-print(final_df)
-# final_df.to_csv("results/all_model_results.csv", index=False)
-# print("Evaluation complete. Results saved to results/all_model_results.csv")
+# print(final_df)
+final_df.to_csv("results/all_model_results.csv", index=False)
+print("Evaluation complete. Results saved to results/all_model_results.csv")
