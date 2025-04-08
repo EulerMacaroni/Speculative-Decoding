@@ -12,16 +12,42 @@ class LogitsProcessor(abc.ABC):
         self.temperature = temperature
 
     def __call__(self, logits: Tensor) -> Tensor:
-        proc = self._process(logits)
-        return F.softmax(proc / self.temperature, dim=-1)
+        """Process logits and apply softmax."""
+        logits = self._process(logits)
+        logits = logits.to(torch.float32)
+        logits = torch.clamp(logits, min=-10000, max=10000)
+        return F.softmax(
+            logits, dim=-1
+        )  # return F.softmax(proc / self.temperature, dim=-1) caused floating err
 
     @abc.abstractmethod
     def _process(self, logits: Tensor) -> Tensor:
+        """Process logits."""
         pass
 
     @abc.abstractmethod
     def sample(self, probs: Tensor) -> Tensor:
+        """Sample from the processed logits."""
         pass
+
+
+# class LogitsProcessor(abc.ABC):
+#     """Logits processors for sampling."""
+#
+#     def __init__(self, temperature: float):
+#         self.temperature = temperature
+#
+#     def __call__(self, logits: Tensor) -> Tensor:
+#         proc = self._process(logits)
+#         return F.softmax(proc / self.temperature, dim=-1)
+#
+#     @abc.abstractmethod
+#     def _process(self, logits: Tensor) -> Tensor:
+#         pass
+#
+#     @abc.abstractmethod
+#     def sample(self, probs: Tensor) -> Tensor:
+#         pass
 
 
 class GreedyProcessor(LogitsProcessor):
@@ -57,16 +83,24 @@ class TopKProcessor(MultinomialProcessor):
         super().__init__(temperature)
         self.top_k = top_k
 
+    # def _process(self, logits: Tensor) -> Tensor:
+    #     logits = logits.to(torch.float32)
+    #     top_k = min(self.top_k, logits.size(-1))
+    #     indices_to_remove = logits < torch.topk(logits, top_k, dim=-1)[0][..., -1, None]
+    #     logits[indices_to_remove] = -1e4
+    #     return logits
+
     def _process(self, logits: Tensor) -> Tensor:
         logits = logits.to(torch.float32)
+        logits = logits / self.temperature
         top_k = min(self.top_k, logits.size(-1))
-        indices_to_remove = logits < torch.topk(logits, top_k, dim=-1)[0][..., -1, None]
-        logits[indices_to_remove] = -1e4
+        threshold = torch.topk(logits, top_k, dim=-1)[0][..., -1, None]
+        logits[logits < threshold] = -1000.0
         return logits
 
 
 class NucleusProcessor(MultinomialProcessor):
-    """Nucleus: Top-p sampling."""
+    """Nucleus (Top-p) sampling with temperature and overflow-safe logits."""
 
     def __init__(self, temperature: float, top_p: float):
         super().__init__(temperature)
@@ -74,18 +108,30 @@ class NucleusProcessor(MultinomialProcessor):
 
     def _process(self, logits: Tensor) -> Tensor:
         logits = logits.to(torch.float32)
+        logits = logits / self.temperature  # Safe temperature scaling
+
+        # Sort logits to compute cumulative probs
         sorted_logits, sorted_indices = torch.sort(logits, descending=True)
-        cumulative_probs = torch.cumsum(F.softmax(sorted_logits, dim=-1), dim=-1)
+
+        # Compute cumulative softmax probabilities
+        probs = F.softmax(sorted_logits, dim=-1)
+        cumulative_probs = torch.cumsum(probs, dim=-1)
+
+        # Mask tokens where cumulative prob > top_p
         sorted_indices_to_remove = cumulative_probs > self.top_p
         sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
         sorted_indices_to_remove[..., 0] = 0
-        sorted_logits[sorted_indices_to_remove] = -1e4
-        logits = torch.gather(sorted_logits, -1, sorted_indices.argsort(-1))
-        return logits
+
+        # Apply mask
+        sorted_logits[sorted_indices_to_remove] = -1000.0
+
+        # Restore original order
+        original_order = sorted_indices.argsort(dim=-1)
+        return torch.gather(sorted_logits, -1, original_order)
 
 
 class TopKNucleusProcessor(MultinomialProcessor):
-    """Top-k and nucleus: Top-k sampling with top-p fallback."""
+    """Top-k + Top-p sampling for diversity with safe float32 logits."""
 
     def __init__(self, temperature: float, top_k: int, top_p: float):
         super().__init__(temperature)
@@ -94,17 +140,27 @@ class TopKNucleusProcessor(MultinomialProcessor):
 
     def _process(self, logits: Tensor) -> Tensor:
         logits = logits.to(torch.float32)
+        logits = logits / self.temperature
+
+        # Stage 1: Top-k filtering
         top_k = min(self.top_k, logits.size(-1))
-        indices_to_remove = logits < torch.topk(logits, top_k, dim=-1)[0][..., -1, None]
-        logits[indices_to_remove] = -1e4
+        topk_threshold = torch.topk(logits, top_k, dim=-1)[0][..., -1, None]
+        logits[logits < topk_threshold] = -1000.0
+
+        # Stage 2: Nucleus filtering
         sorted_logits, sorted_indices = torch.sort(logits, descending=True)
-        cumulative_probs = torch.cumsum(F.softmax(sorted_logits, dim=-1), dim=-1)
+        probs = F.softmax(sorted_logits, dim=-1)
+        cumulative_probs = torch.cumsum(probs, dim=-1)
+
+        # Filter logits where cumulative prob > top_p
         sorted_indices_to_remove = cumulative_probs > self.top_p
         sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
         sorted_indices_to_remove[..., 0] = 0
-        sorted_logits[sorted_indices_to_remove] = -1e4
-        logits = torch.gather(sorted_logits, -1, sorted_indices.argsort(-1))
-        return logits
+        sorted_logits[sorted_indices_to_remove] = -1000.0
+
+        # Restore original order
+        original_order = sorted_indices.argsort(dim=-1)
+        return torch.gather(sorted_logits, -1, original_order)
 
 
 class TwoStageSamplingProcessor(MultinomialProcessor):
@@ -125,6 +181,7 @@ class TwoStageSamplingProcessor(MultinomialProcessor):
 
     def _process(self, logits: Tensor) -> Tensor:
         logits = logits.to(torch.float32)
+        logits = logits / self.temperature
         # Stage 1: Select top-k
         top_k = min(self.top_k, logits.size(-1))
         top_logits, top_indices = torch.topk(logits, top_k, dim=-1)
@@ -133,6 +190,10 @@ class TwoStageSamplingProcessor(MultinomialProcessor):
         noise = torch.randn_like(top_logits) * self.noise_scale
         perturbed_logits = top_logits + noise
 
+        perturbed_logits = torch.clamp(perturbed_logits, min=-10000, max=10000)
         # Reconstruct full logits tensor
-        perturbed_logits_full = torch.full_like(logits, -1e4)
-        return perturbed_logits_full.scatter(-1, top_indices, perturbed_logits)
+        fill_value = -1000.0  # Safe low value
+        perturbed_logits_full = torch.full_like(logits, fill_value)
+        perturbed_logits_full.scatter_(-1, top_indices, perturbed_logits)
+
+        return perturbed_logits_full

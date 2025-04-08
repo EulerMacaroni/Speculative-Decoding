@@ -1,0 +1,271 @@
+question,answer,temperature,model,processor,output,score,acceptance_rate,tokens_per_sec
+Who was the first President of the United States?,George Washington,0.8,speculative,TwoStage," George Washington was the first President of the United States. He was inaugurated on April 30, 1789, and served two terms until March 4, 17",0.5668257474899292,0.4807692307692308,5.15
+Who was the first President of the United States?,George Washington,0.8,ngram,TwoStage," The first President of the United States was George Washington. The United States declared independence from Great Britain in 1776, and Washington was elected as the first President of the new country in",0.5531858801841736,0.5833333333333334,7.91
+Who was the first President of the United States?,George Washington,0.8,autoregressive,TwoStage," The first President of the United States was George Washington. He was inaugurated as the first President of the United States on April 30, 1789, and served two terms",0.5188355445861816,,6.44
+What is 15 percent of 200?,30,0.8,speculative,TwoStage," To find 15% of 200, you can multiply 200 by 0.015.
+
+200 x 0.015",0.1457817554473877,0.3333333333333333,4.3
+What is 15 percent of 200?,30,0.8,ngram,TwoStage," To find 15 percent of 200, you can multiply 200 by 0.015, like this:
+
+200 x 0.",0.15392223000526428,0.45,8.79
+What is 15 percent of 200?,30,0.8,autoregressive,TwoStage," Sure! 15% of 200 is equal to:
+
+200 x 0.15 = 30
+
+So 15% of ",0.17185965180397034,,6.39
+What is the square root of 144?,12,0.8,speculative,TwoStage, The square root of 144 is 12.,0.3954220414161682,0.375,4.58
+What is the square root of 144?,12,0.8,ngram,TwoStage, The square root of 144 is 12.,0.3954220414161682,0.3333333333333333,9.25
+What is the square root of 144?,12,0.8,autoregressive,TwoStage, The square root of 144 is 12.,0.3954220414161682,,7.01
+Who was the leader of Nazi Germany?,Adolf Hitler,0.8,speculative,TwoStage," The leader of Nazi Germany during World War II was Adolf Hitler (1889-1945). Hitler was the founder and leader of the Nazi Party, and he served",0.5840413570404053,0.4716981132075472,5.1
+Who was the leader of Nazi Germany?,Adolf Hitler,0.8,ngram,TwoStage," The leader of Nazi Germany during World War II was Adolf Hitler.
+
+Adolf Hitler was born in Austria in 1889 and was appointed as the leader of the Nazi",0.6269856691360474,0.5714285714285714,7.48
+Who was the leader of Nazi Germany?,Adolf Hitler,0.8,autoregressive,TwoStage, The leader of Nazi Germany during World War II was Adolf Hitler. Hitler was the dictator of Germany from 1934 until his death in 1945. He rose,0.6300328969955444,,6.27
+What force keeps us on the ground?,Gravity,0.8,speculative,TwoStage," There are several forces that keep us on the ground:
+
+1. Gravity: Gravity is the force that attracts objects towards the center of the Earth. It pulls us down",0.484314501285553,0.2916666666666667,3.93
+What force keeps us on the ground?,Gravity,0.8,ngram,TwoStage," The force that keeps us on the ground is known as the force of gravity. Here is a detailed explanation of what gravity is and how it keeps us on the ground:
+
+Gravity",0.49479228258132935,0.75,5.15
+What force keeps us on the ground?,Gravity,0.8,autoregressive,TwoStage," There are several forces that keep us on the ground:
+
+1. Gravity: Gravity is the force that attracts objects towards each other with a force proportional to their mass. The",0.5001986026763916,,4.99
+How many planets are in the solar system?,Eight,0.8,speculative,TwoStage," There are eight planets in the solar system:
+
+1. Mercury
+2. Venus
+3. Earth
+4. Mars
+5. Jupiter
+6. Saturn",0.3387947380542755,0.6511627906976745,6.58
+How many planets are in the solar system?,Eight,0.8,ngram,TwoStage," There are 8 planets in the solar system:
+
+1. Mercury
+2. Venus
+3. Earth
+4. Mars
+5. Jupiter
+6. Sat",0.34463876485824585,0.25,6.93
+How many planets are in the solar system?,Eight,0.8,autoregressive,TwoStage," The solar system consists of eight planets:
+
+1. Mercury
+2. Venus
+3. Earth
+4. Mars
+5. Jupiter
+6. Saturn
+",0.278439462184906,,6.37
+What empire built the Colosseum?,Roman Empire,0.8,speculative,TwoStage," The Colosseum, also known as the Flavian Amphitheatre, was built by the Roman Empire under the rule of the emperor Vespasian (96",0.45565474033355713,0.4528301886792453,4.81
+What empire built the Colosseum?,Roman Empire,0.8,ngram,TwoStage," The Colosseum, also known as the Flavian Amphitheatre, was built by the Roman Empire under the rule of Emperor Vespasian (96-7",0.4610472619533539,0.5,6.43
+What empire built the Colosseum?,Roman Empire,0.8,autoregressive,TwoStage," The Colosseum, also known as the Flavian Amphitheatre, was built by the Flavian dynasty of Rome during the reign of Emperor Vespasian",0.3983837962150574,,6.75
+What is the integral of 1 over x?,ln(x),0.8,speculative,TwoStage," The integral of 1 over x is an improper integral and does not exist in the classical sense.
+
+The reason is that the function 1/x is not defined at x=",0.2905914783477783,0.36065573770491804,4.49
+What is the integral of 1 over x?,ln(x),0.8,ngram,TwoStage," The indefinite integral of 1 over x is:
+
+$$\int \frac{1}{x} dx = \log|x| + C$$
+
+where C is",0.4368714988231659,0.6666666666666666,7.68
+What is the integral of 1 over x?,ln(x),0.8,autoregressive,TwoStage," The indefinite integral of 1/x is not defined over all real numbers.
+
+The reason is that the integrand (1/x) has a division by zero, which",0.28999027609825134,,6.43
+What is the opposite of 'hot'?,Cold,0.8,speculative,TwoStage," The opposite of ""hot"" can depend on the context in which the word is being used. Here are a few possible opposites of ""hot"":
+
+1. Cold: This is the",0.3759993314743042,0.5102040816326531,5.91
+What is the opposite of 'hot'?,Cold,0.8,ngram,TwoStage," The opposite of ""hot"" depends on the context. Here are some possible opposites:
+
+1. Cold: This is the most obvious opposite of ""hot"", referring to a temperature that",0.3657151460647583,0.16666666666666666,6.67
+What is the opposite of 'hot'?,Cold,0.8,autoregressive,TwoStage," The opposite of ""hot"" can depend on the context, but some common antonyms of ""hot"" include:
+
+1. Cold: This is the most obvious opposite of """,0.3672386705875397,,6.98
+What is the longest river in the world?,Nile,0.8,speculative,TwoStage," The longest river in the world is the Nile River, which is approximately 6,695 kilometers (4,160 miles) long.
+
+The Nile River",0.49394065141677856,0.43636363636363634,4.99
+What is the longest river in the world?,Nile,0.8,ngram,TwoStage," The longest river in the world is the Nile River, which is approximately 4,160 miles (6,670 kilometers) long.
+
+The Nile River",0.4911562204360962,0.375,7.02
+What is the longest river in the world?,Nile,0.8,autoregressive,TwoStage," The longest river in the world is the Nile River, which is approximately 4,160 miles (6,670 kilometers) long. It flows through 11",0.514586329460144,,6.73
+What is the value of pi rounded to two decimal places?,3.14,0.8,speculative,TwoStage, The value of pi rounded to two decimal places is 3.14.,0.4577765464782715,0.65,6.55
+What is the value of pi rounded to two decimal places?,3.14,0.8,ngram,TwoStage, The value of pi rounded to two decimal places is 3.14.,0.4577765464782715,0.625,9.08
+What is the value of pi rounded to two decimal places?,3.14,0.8,autoregressive,TwoStage, The value of pi rounded to two decimal places is 3.14.,0.4577765464782715,,6.01
+Which ocean is off the California coast?,Pacific Ocean,0.8,speculative,TwoStage," The California coast borders the Pacific Ocean.
+
+Here are the oceans that border California:
+
+* Pacific Ocean (to the west)
+* Arctic Ocean (to the north",0.5967612862586975,0.3088235294117647,4.27
+Which ocean is off the California coast?,Pacific Ocean,0.8,ngram,TwoStage," California is located on the Pacific Ocean.
+
+The Pacific Ocean is the largest of the Earth's five oceans, covering an area of approximately 155.6 million square",0.6206133961677551,0.0,6.42
+Which ocean is off the California coast?,Pacific Ocean,0.8,autoregressive,TwoStage," The California coast is bordered by the Pacific Ocean.
+
+Therefore, the ocean off the California coast is the Pacific Ocean.",0.639900267124176,,7.08
+What does HTML stand for?,HyperText Markup Language,0.8,speculative,TwoStage, HTML stands for HyperText Markup Language. It is the standard markup language used to create web pages and is the backbone of a website. HTML is used to structure and organize content on,0.5491430759429932,0.38333333333333336,4.61
+What does HTML stand for?,HyperText Markup Language,0.8,ngram,TwoStage," HTML stands for Hypertext Markup Language.
+
+HTML is the standard markup language used to create web pages. It is the backbone of a website, providing the structure and content that the",0.563559889793396,0.0,6.29
+What does HTML stand for?,HyperText Markup Language,0.8,autoregressive,TwoStage, HTML stands for HyperText Markup Language. It is the standard language used to create the structure and layout of a website by defining the elements and their properties in a document. HTML is the back,0.5343330502510071,,6.99
+What is the derivative of x squared?,2x,0.8,speculative,TwoStage," The derivative of x squared is:
+
+$$ \frac{d}{dx} x^2 = 2x $$
+
+So, the derivative of x squared is 2",0.34518998861312866,0.5625,5.83
+What is the derivative of x squared?,2x,0.8,ngram,TwoStage," The derivative of x squared is:
+
+$$\frac{d}{dx} x^2 = 2x$$
+
+To see why this is true, use the definition of",0.25720706582069397,0.375,7.46
+What is the derivative of x squared?,2x,0.8,autoregressive,TwoStage," The derivative of x^2 is 2x.
+
+To find the derivative of x^2, we can use the power rule of differentiation, which states that if y = x",0.36040198802948,,6.38
+How many letters are in the English alphabet?,26,0.8,speculative,TwoStage," The English alphabet has 26 letters:
+
+1. A
+2. B
+3. C
+4. D
+5. E
+6. F
+7. G
+",0.38284480571746826,0.574468085106383,6.38
+How many letters are in the English alphabet?,26,0.8,ngram,TwoStage," The English alphabet consists of 26 letters:
+
+1. A
+2. B
+3. C
+4. D
+5. E
+6. F
+7. G",0.3751324415206909,0.0,6.31
+How many letters are in the English alphabet?,26,0.8,autoregressive,TwoStage," The English alphabet consists of 26 letters:
+
+1. A
+2. B
+3. C
+4. D
+5. E
+6. F
+7. G",0.3751324415206909,,6.95
+Which continent is Egypt part of?,Africa,0.8,speculative,TwoStage, Egypt is located on the continent of Africa.,0.5834262371063232,0.25,4.05
+Which continent is Egypt part of?,Africa,0.8,ngram,TwoStage, Egypt is a country located in Africa.,0.5935949087142944,0.0,5.72
+Which continent is Egypt part of?,Africa,0.8,autoregressive,TwoStage, Egypt is located on the continent of Africa.,0.5834262371063232,,6.24
+In what year did World War II end?,1945,0.8,speculative,TwoStage," World War II ended in 1945. The war officially ended on September 2, 1945, when the Japanese Instrument of Surrender was signed by represent",0.5391209125518799,0.574468085106383,6.27
+In what year did World War II end?,1945,0.8,ngram,TwoStage," World War II ended in 1945. The war ended with the defeat of Nazi Germany on May 8, 1945, when Germany surrendered to the Al",0.5402413606643677,0.5,6.7
+In what year did World War II end?,1945,0.8,autoregressive,TwoStage," World War II ended in 1945. Here are the key events that marked the end of the war:
+
+1. Germany's Surrender: Germany surrendered on",0.48551785945892334,,6.74
+What part of speech is 'quickly'?,Adverb,0.8,speculative,TwoStage," The word ""quickly"" is an adverb.
+
+Adverbs are words that modify or describe verbs, adjectives, or other adverbs, providing information about the",0.5144397616386414,0.42105263157894735,4.81
+What part of speech is 'quickly'?,Adverb,0.8,ngram,TwoStage," The word ""quickly"" is an adverb. It describes the manner or speed at which an action is performed, and it tells us how something is done or how fast something happens.",0.3043524920940399,0.0,6.82
+What part of speech is 'quickly'?,Adverb,0.8,autoregressive,TwoStage," The word ""quickly"" is an adverb.
+
+Adverbs are words that modify verbs, adjectives, or other adverbs, and tell us how, when",0.5028433203697205,,6.41
+What is the plural of 'mouse'?,Mice,0.8,speculative,TwoStage," The plural of ""mouse"" is ""mice"".",0.7082200050354004,0.45,5.15
+What is the plural of 'mouse'?,Mice,0.8,ngram,TwoStage," The plural of ""mouse"" is also ""mouse."" Mice is an alternative plural form, but it is less common in modern English.
+
+So, the correct plural form",0.5168306827545166,0.08333333333333333,6.46
+What is the plural of 'mouse'?,Mice,0.8,autoregressive,TwoStage," The plural of ""mouse"" is ""mice"".",0.7082200050354004,,7.05
+What organ pumps blood through the body?,Heart,0.8,speculative,TwoStage," The heart is the organ that pumps blood through the body. Here's a brief overview of how the heart works:
+
+The heart is a muscular organ that pumps blood",0.4680337905883789,0.4716981132075472,4.96
+What organ pumps blood through the body?,Heart,0.8,ngram,TwoStage," The heart is the organ that pumps blood through the body.
+
+The heart is a muscular organ that plays a crucial role in the circulatory system by pumping blood throughout",0.5117155313491821,0.3333333333333333,7.14
+What organ pumps blood through the body?,Heart,0.8,autoregressive,TwoStage," The heart is the organ that pumps blood throughout the body in vertebrates, including humans.
+
+The heart is a muscular organ that contracts and relaxes to pump blood",0.5191235542297363,,6.81
+What is the capital of Japan?,Tokyo,0.8,speculative,TwoStage," The capital of Japan is Tokyo. Located on the eastern coast of Honshu, the largest island of Japan, Tokyo is a global hub of culture, technology, and innovation. With",0.5955146551132202,0.42857142857142855,5.01
+What is the capital of Japan?,Tokyo,0.8,ngram,TwoStage, The capital of Japan is Tokyo.,0.6997227668762207,0.25,7.61
+What is the capital of Japan?,Tokyo,0.8,autoregressive,TwoStage," The capital of Japan is Tokyo.
+
+Tokyo is the political, economic, and cultural center of Japan, and is located on the eastern coast of Honshu, the largest island",0.5681107640266418,,6.4
+Which keyword defines a function in Python?,def,0.8,speculative,TwoStage," In Python, the keyword that defines a function is `def`.
+
+Here is an example of how to define a function using the `def` keyword:
+```
+def greet(",0.230057030916214,0.4807692307692308,5.75
+Which keyword defines a function in Python?,def,0.8,ngram,TwoStage," In Python, the keyword that defines a function is `def`.
+
+Here is an example of how to define a function in Python:
+```
+def greet(name):
+   ",0.18588177859783173,0.16666666666666666,6.67
+Which keyword defines a function in Python?,def,0.8,autoregressive,TwoStage," In Python, the keyword that defines a function is `def`.
+
+Here is an example of how to define a simple function in Python using the `def` keyword:
+```
+def",0.23359531164169312,,6.91
+What symbol is used for comments in Python?,#,0.8,speculative,TwoStage," In Python, the symbol used for comments is `#`. A single `#` at the beginning of a line or a block of text will be ignored by the interpreter and considered a comment.
+
+",0.2780383229255676,0.34375,4.46
+What symbol is used for comments in Python?,#,0.8,ngram,TwoStage," In Python, the symbol used for comments is `#`.
+
+Here is an example of a comment in Python:
+```
+# This is a comment
+```
+Comments in Python are",0.2662813663482666,0.125,6.7
+What symbol is used for comments in Python?,#,0.8,autoregressive,TwoStage," In Python, comments are denoted using the `#` symbol.
+
+For example:
+```
+# This is a comment
+```
+Any text that follows the `#` symbol up to the",0.3312601149082184,,6.92
+What gas do plants absorb during photosynthesis?,Carbon dioxide,0.8,speculative,TwoStage," During photosynthesis, plants absorb carbon dioxide (CO2) as the main gas.
+Other gases that plants may absorb include:
+
+1. Water (H",0.5202809572219849,0.5102040816326531,5.44
+What gas do plants absorb during photosynthesis?,Carbon dioxide,0.8,ngram,TwoStage," During photosynthesis, plants absorb three main types of gases: carbon dioxide (CO2), water (H2O), and oxygen (O2).
+
+1",0.4765758216381073,0.25,6.98
+What gas do plants absorb during photosynthesis?,Carbon dioxide,0.8,autoregressive,TwoStage," During photosynthesis, plants absorb three main gas molecules: carbon dioxide (CO2), water (H2O), and energy from light (in the form of light energy",0.4635252356529236,,6.23
+What is the chemical symbol for water?,H2O,0.8,speculative,TwoStage," The chemical symbol for water is H2O.
+
+The symbol ""H"" represents hydrogen, and the ""O"" represents oxygen, which are the two elements that make up water",0.5065893530845642,0.4067796610169492,5.03
+What is the chemical symbol for water?,H2O,0.8,ngram,TwoStage," The chemical symbol for water is H2O.
+
+Water is a compound made up of two hydrogen atoms (H) and one oxygen atom (O). The ""H",0.5361878275871277,0.5,6.63
+What is the chemical symbol for water?,H2O,0.8,autoregressive,TwoStage," The chemical symbol for water is H2O.
+
+Water is a compound made up of two hydrogen atoms (H) and one oxygen atom (O). The chemical formula",0.516573965549469,,7.01
+Who discovered penicillin?,Alexander Fleming,0.8,speculative,TwoStage, Penicillin was discovered by Scottish scientist Sir Alexander Fleming in 1928. Fleming was working in his laboratory at St. Mary's Hospital in,0.5311974287033081,0.4716981132075472,5.18
+Who discovered penicillin?,Alexander Fleming,0.8,ngram,TwoStage, Penicillin was discovered by Scottish scientist Sir Alexander Fleming in 1928. Fleming was working in his laboratory at St. Mary's Hospital in,0.5311974287033081,0.25,6.94
+Who discovered penicillin?,Alexander Fleming,0.8,autoregressive,TwoStage, Penicillin was discovered by Scottish scientist Sir Alexander Fleming in 1928. Fleming was working in his laboratory at St. Mary's Hospital in,0.5311974287033081,,6.52
+What is a synonym for 'happy'?,Joyful,0.8,speculative,TwoStage," There are many synonyms for the word ""happy."" Here are some options:
+
+1. Joyful: This word suggests a deep and abiding sense of happiness, often accompanied",0.49558091163635254,0.2602739726027397,3.79
+What is a synonym for 'happy'?,Joyful,0.8,ngram,TwoStage," There are many synonyms for the word ""happy"". Some options include:
+
+1. Joyful
+2. Content
+3. Cheerful
+4. Jubil",0.5249875783920288,0.0,6.93
+What is a synonym for 'happy'?,Joyful,0.8,autoregressive,TwoStage," There are many synonyms for the word ""happy"". Here are some options:
+
+1. Joyful: This word means feeling or expressing great joy or pleasure.
+2",0.5205826163291931,,6.48
+What is the output of print(2 ** 3) in Python?,8,0.8,speculative,TwoStage," In Python, the output of `print(2 ** 3)` is `8`.
+
+Explanation:
+
+In Python, the `**` operator is used to perform exponent",0.2995359003543854,0.39655172413793105,4.77
+What is the output of print(2 ** 3) in Python?,8,0.8,ngram,TwoStage," In Python, the output of `print(2 ** 3)` is `8`.
+
+Explanation:
+
+`print(2 ** 3)` is equivalent to `2",0.3041253685951233,0.34782608695652173,8.57
+What is the output of print(2 ** 3) in Python?,8,0.8,autoregressive,TwoStage," In Python, the output of `print(2 ** 3)` is `8`.
+
+Explanation:
+
+In Python, the `**` operator is used to perform exponent",0.2995359003543854,,6.73
+What does CSS stand for?,Cascading Style Sheets,0.8,speculative,TwoStage, CSS stands for Cascading Style Sheets. It is a styling language used to control the layout and appearance of web pages. CSS is used in conjunction with HTML and JavaScript to create,0.29115670919418335,0.5531914893617021,5.93
+What does CSS stand for?,Cascading Style Sheets,0.8,ngram,TwoStage, CSS stands for Cascading Style Sheets. It is a styling language used to control the layout and appearance of web pages written in HTML and other languages. CSS allows developers to separate the,0.33334070444107056,0.0,6.38
+What does CSS stand for?,Cascading Style Sheets,0.8,autoregressive,TwoStage, CSS stands for Cascading Style Sheets. It is a styling language used to control the layout and appearance of web pages by separating the presentation from the content of a web page.,0.3522440195083618,,7.0
+Which country is known for the Eiffel Tower?,France,0.8,speculative,TwoStage," The Eiffel Tower is located in Paris, France. It is one of the most iconic landmarks in the world and is located in the heart of Paris, France's capital city",0.3645501136779785,0.3384615384615385,4.28
+Which country is known for the Eiffel Tower?,France,0.8,ngram,TwoStage," The Eiffel Tower is located in Paris, France.
+
+The Eiffel Tower is an iconic symbol of Paris and one of the most recognizable landmarks in the world.",0.3912418484687805,0.625,7.85
+Which country is known for the Eiffel Tower?,France,0.8,autoregressive,TwoStage," The Eiffel Tower is located in Paris, France. It is one of the most iconic landmarks in the world and is located in the heart of Paris, France's capital city",0.3645501136779785,,6.4

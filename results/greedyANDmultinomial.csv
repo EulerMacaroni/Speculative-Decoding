@@ -1,0 +1,529 @@
+question,answer,temperature,model,processor,output,score,acceptance_rate,tokens_per_sec
+Who was the first President of the United States?,George Washington,0.8,speculative,greedy," The first President of the United States was George Washington. He was inaugurated on April 30, 1789, and served two terms in office until March 4, ",0.5365633368492126,0.5098039215686274,2.63
+Who was the first President of the United States?,George Washington,0.8,ngram,greedy," The first President of the United States was George Washington. He was inaugurated on April 30, 1789, and served two terms in office until March 4, ",0.5365633368492126,1.0,4.21
+Who was the first President of the United States?,George Washington,0.8,autoregressive,greedy," The first President of the United States was George Washington. He was inaugurated on April 30, 1789, and served two terms in office until March 4, ",0.5365633368492126,,6.2
+What is 15 percent of 200?,30,0.8,speculative,greedy," To find 15 percent of 200, you can multiply 200 by 0.
+0.15 = 30
+
+So, 15",0.25771811604499817,0.3770491803278688,4.37
+What is 15 percent of 200?,30,0.8,ngram,greedy," To find 15 percent of 200, you can multiply 200 by 0.15.
+
+200 x 0.15 = ",0.168513223528862,0.5,9.74
+What is 15 percent of 200?,30,0.8,autoregressive,greedy," To find 15 percent of 200, you can multiply 200 by 0.15.
+
+200 x 0.15 = ",0.168513223528862,,4.54
+What is the square root of 144?,12,0.8,speculative,greedy, The square root of 144 is 12.,0.3954220414161682,0.6875,3.54
+What is the square root of 144?,12,0.8,ngram,greedy, The square root of 144 is 12.,0.3954220414161682,0.3333333333333333,9.19
+What is the square root of 144?,12,0.8,autoregressive,greedy, The square root of 144 is 12.,0.3954220414161682,,6.92
+Who was the leader of Nazi Germany?,Adolf Hitler,0.8,speculative,greedy," The leader of Nazi Germany during World War II was Adolf Hitler.
+
+Adolf Hitler was born in Austria in 1889 and became the leader of the Nazi Party in",0.6121636629104614,0.4716981132075472,5.09
+Who was the leader of Nazi Germany?,Adolf Hitler,0.8,ngram,greedy," The leader of Nazi Germany during World War II was Adolf Hitler.
+
+Adolf Hitler was born in Austria in 1889 and became the leader of the Nazi Party in",0.6121636629104614,0.4444444444444444,6.87
+Who was the leader of Nazi Germany?,Adolf Hitler,0.8,autoregressive,greedy," The leader of Nazi Germany during World War II was Adolf Hitler.
+
+Adolf Hitler was born in Austria in 1889 and became the leader of the Nazi Party in",0.6121636629104614,,6.68
+What force keeps us on the ground?,Gravity,0.8,speculative,greedy, The force that keeps us on the ground is called gravity. It is a fundamental force of nature that attracts objects towards each other with a force proportional to their mass and the distance between them.,0.5322452783584595,0.3384615384615385,4.26
+What force keeps us on the ground?,Gravity,0.8,ngram,greedy, The force that keeps us on the ground is called gravity. It is a fundamental force of nature that attracts objects towards each other with a force proportional to their mass and the distance between them.,0.5322452783584595,0.75,7.4
+What force keeps us on the ground?,Gravity,0.8,autoregressive,greedy, The force that keeps us on the ground is called gravity. It is a fundamental force of nature that attracts objects towards each other with a force proportional to their mass and the distance between them.,0.5322452783584595,,5.42
+How many planets are in the solar system?,Eight,0.8,speculative,greedy," There are eight planets in the solar system:
+
+1. Mercury
+2. Venus
+3. Earth
+4. Mars
+5. Jupiter
+6. Saturn",0.3387947380542755,0.6511627906976745,6.88
+How many planets are in the solar system?,Eight,0.8,ngram,greedy," The solar system consists of eight planets:
+
+1. Mercury
+2. Venus
+3. Earth
+4. Mars
+5. Jupiter
+6. Saturn
+",0.278439462184906,0.0,6.23
+How many planets are in the solar system?,Eight,0.8,autoregressive,greedy," The solar system consists of eight planets:
+
+1. Mercury
+2. Venus
+3. Earth
+4. Mars
+5. Jupiter
+6. Saturn
+",0.278439462184906,,6.81
+What empire built the Colosseum?,Roman Empire,0.8,speculative,greedy," The Colosseum, also known as the Flavian Amphitheatre, was built by the Roman Empire. The Colosseum was constructed in the 1st century",0.3464058041572571,0.5416666666666666,5.02
+What empire built the Colosseum?,Roman Empire,0.8,ngram,greedy," The Colosseum, also known as the Flavian Amphitheatre, was built by the Roman Empire during the reign of Emperor Vespasian (96-7",0.4398563504219055,0.5,6.38
+What empire built the Colosseum?,Roman Empire,0.8,autoregressive,greedy," The Colosseum, also known as the Flavian Amphitheatre, was built by the Roman Empire during the reign of Emperor Vespasian (96-7",0.4398563504219055,,6.21
+What is the integral of 1 over x?,ln(x),0.8,speculative,greedy," The integral of 1 over x is an improper integral and does not exist in the classical sense.
+
+The reason for this is that the function 1/x is not defined at",0.3055618405342102,0.34375,4.29
+What is the integral of 1 over x?,ln(x),0.8,ngram,greedy," The integral of 1 over x is an infinite series, not a single function.
+
+The integral of 1 over x is written as:
+
+$$\int_{0}^{\infty",0.2816048264503479,0.5,8.61
+What is the integral of 1 over x?,ln(x),0.8,autoregressive,greedy," The integral of 1 over x is an infinite series, not a single function.
+
+The integral of 1 over x is written as:
+
+$$\int_{0}^{\infty",0.2816048264503479,,6.44
+What is the opposite of 'hot'?,Cold,0.8,speculative,greedy," The opposite of ""hot"" can depend on the context, but some common antonyms of ""hot"" include:
+
+1. Cold: This is the most obvious opposite of """,0.3672386705875397,0.4444444444444444,5.13
+What is the opposite of 'hot'?,Cold,0.8,ngram,greedy," The opposite of ""hot"" can depend on the context, but some common antonyms of ""hot"" include:
+
+1. Cold
+2. Cool
+3. Ch",0.4309898316860199,0.25,6.83
+What is the opposite of 'hot'?,Cold,0.8,autoregressive,greedy," The opposite of ""hot"" can depend on the context, but some common antonyms of ""hot"" include:
+
+1. Cold
+2. Cool
+3. Ch",0.4309898316860199,,6.49
+What is the longest river in the world?,Nile,0.8,speculative,greedy," The longest river in the world is the Nile River, which is approximately 4,160 miles (6,670 kilometers) long.
+
+The Nile River",0.4911562204360962,0.46296296296296297,5.38
+What is the longest river in the world?,Nile,0.8,ngram,greedy," The longest river in the world is the Nile River, which is approximately 4,160 miles (6,670 kilometers) long.
+
+The Nile River",0.4911562204360962,0.375,6.81
+What is the longest river in the world?,Nile,0.8,autoregressive,greedy," The longest river in the world is the Nile River, which is approximately 4,160 miles (6,670 kilometers) long.
+
+The Nile River",0.4911562204360962,,6.89
+What is the value of pi rounded to two decimal places?,3.14,0.8,speculative,greedy, The value of pi rounded to two decimal places is 3.14.,0.4577765464782715,0.65,6.67
+What is the value of pi rounded to two decimal places?,3.14,0.8,ngram,greedy, The value of pi rounded to two decimal places is 3.14.,0.4577765464782715,0.625,7.76
+What is the value of pi rounded to two decimal places?,3.14,0.8,autoregressive,greedy, The value of pi rounded to two decimal places is 3.14.,0.4577765464782715,,6.6
+Which ocean is off the California coast?,Pacific Ocean,0.8,speculative,greedy," The California coast is bordered by the Pacific Ocean.
+
+The Pacific Ocean is the largest of the Earth's five oceans, covering approximately 155.6 million square",0.6068737506866455,0.3548387096774194,4.52
+Which ocean is off the California coast?,Pacific Ocean,0.8,ngram,greedy," The California coast is bordered by the Pacific Ocean.
+
+The Pacific Ocean is the largest of the Earth's five oceans, covering an area of approximately 155.",0.6379947662353516,0.0,6.56
+Which ocean is off the California coast?,Pacific Ocean,0.8,autoregressive,greedy," The California coast is bordered by the Pacific Ocean.
+
+The Pacific Ocean is the largest of the Earth's five oceans, covering an area of approximately 155.",0.6379947662353516,,6.24
+What does HTML stand for?,HyperText Markup Language,0.8,speculative,greedy," HTML stands for Hypertext Markup Language. It is the standard markup language used to create web pages and structure the content on the web. HTML is the foundation of a web page, providing the",0.5434402227401733,0.42857142857142855,5.2
+What does HTML stand for?,HyperText Markup Language,0.8,ngram,greedy, HTML stands for Hypertext Markup Language. It is the standard markup language used to create web pages and is the backbone of a website. HTML is used to create the structure and layout of,0.5385897755622864,0.125,6.49
+What does HTML stand for?,HyperText Markup Language,0.8,autoregressive,greedy, HTML stands for Hypertext Markup Language. It is the standard markup language used to create web pages and is the foundation of a website's structure and layout. HTML is used to define the,0.5399009585380554,,6.79
+What is the derivative of x squared?,2x,0.8,speculative,greedy, The derivative of x squared is x squared.,0.19427116215229034,0.5625,5.85
+What is the derivative of x squared?,2x,0.8,ngram,greedy," The derivative of x squared is:
+
+$$\frac{d}{dx} x^2 = 2x$$
+
+To see why this is true, use the definition of",0.25720706582069397,0.375,6.83
+What is the derivative of x squared?,2x,0.8,autoregressive,greedy," The derivative of x squared is:
+
+$$\frac{d}{dx} x^2 = 2x$$
+
+To see why this is true, use the definition of",0.25720706582069397,,6.81
+How many letters are in the English alphabet?,26,0.8,speculative,greedy," The English alphabet has 26 letters:
+
+1. A
+2. B
+3. C
+4. D
+5. E
+6. F
+7. G
+",0.38284480571746826,0.6,6.08
+How many letters are in the English alphabet?,26,0.8,ngram,greedy," The English alphabet has 26 letters:
+
+1. A
+2. B
+3. C
+4. D
+5. E
+6. F
+7. G
+",0.38284480571746826,0.0,6.71
+How many letters are in the English alphabet?,26,0.8,autoregressive,greedy," The English alphabet has 26 letters:
+
+1. A
+2. B
+3. C
+4. D
+5. E
+6. F
+7. G
+",0.38284480571746826,,6.53
+Which continent is Egypt part of?,Africa,0.8,speculative,greedy, Egypt is part of the continent of Africa.,0.5876299142837524,0.375,4.99
+Which continent is Egypt part of?,Africa,0.8,ngram,greedy, Egypt is located on the continent of Africa.,0.5834262371063232,0.0,6.79
+Which continent is Egypt part of?,Africa,0.8,autoregressive,greedy, Egypt is located on the continent of Africa.,0.5834262371063232,,6.27
+In what year did World War II end?,1945,0.8,speculative,greedy," World War II ended in 1945. Here are the key events that marked the end of the war:
+
+1. The surrender of Germany: Germany surrendered on May ",0.4913734495639801,0.5306122448979592,5.57
+In what year did World War II end?,1945,0.8,ngram,greedy," World War II ended in 1945. Here are the key events that marked the end of the war:
+
+1. Germany's Surrender: Germany surrendered on",0.48551785945892334,0.25,6.18
+In what year did World War II end?,1945,0.8,autoregressive,greedy," World War II ended in 1945. Here are the key events that marked the end of the war:
+
+1. Germany's Surrender: Germany surrendered on",0.48551785945892334,,6.66
+What part of speech is 'quickly'?,Adverb,0.8,speculative,greedy," The word ""quickly"" is an adverb.",0.4869506359100342,0.4,4.75
+What part of speech is 'quickly'?,Adverb,0.8,ngram,greedy," The word ""quickly"" is an adverb. It modifies the verb ""moved"" in the sentence and tells us how quickly the man moved. Adverbs typically answer questions such",0.38210469484329224,0.0,6.28
+What part of speech is 'quickly'?,Adverb,0.8,autoregressive,greedy," The word ""quickly"" is an adverb. It modifies the verb ""moved"" in the sentence and tells us how quickly the man moved. Adverbs typically answer questions such",0.38210469484329224,,6.85
+What is the plural of 'mouse'?,Mice,0.8,speculative,greedy," The plural of ""mouse"" is ""mice"".",0.7082200050354004,0.45,4.31
+What is the plural of 'mouse'?,Mice,0.8,ngram,greedy," The plural of ""mouse"" is ""mice"".",0.7082200050354004,0.25,7.35
+What is the plural of 'mouse'?,Mice,0.8,autoregressive,greedy," The plural of ""mouse"" is ""mice"".",0.7082200050354004,,6.92
+What organ pumps blood through the body?,Heart,0.8,speculative,greedy," The heart is the organ that pumps blood through the body.
+
+The heart is a muscular organ that is located in the chest, and it is responsible for circulating blood throughout",0.4937209188938141,0.5869565217391305,6.05
+What organ pumps blood through the body?,Heart,0.8,ngram,greedy," The heart is the organ that pumps blood through the body.
+
+The heart is a muscular organ that is responsible for pumping blood throughout the body. It is located in the",0.4989543557167053,0.3125,7.5
+What organ pumps blood through the body?,Heart,0.8,autoregressive,greedy," The heart is the organ that pumps blood through the body.
+
+The heart is a muscular organ that is responsible for pumping blood throughout the body. It is located in the",0.4989543557167053,,6.69
+What is the capital of Japan?,Tokyo,0.8,speculative,greedy," The capital of Japan is Tokyo. Located on the eastern coast of Honshu, the largest island of Japan, Tokyo is a global hub for business, culture, and innovation. The",0.6069662570953369,0.52,5.62
+What is the capital of Japan?,Tokyo,0.8,ngram,greedy," The capital of Japan is Tokyo. Located on the eastern coast of Honshu, the largest island of Japan, Tokyo is a global hub for business, culture, and innovation. The",0.6069662570953369,0.125,6.39
+What is the capital of Japan?,Tokyo,0.8,autoregressive,greedy," The capital of Japan is Tokyo. Located on the eastern coast of Honshu, the largest island of Japan, Tokyo is a global hub for business, culture, and innovation. The",0.6069662570953369,,6.85
+Which keyword defines a function in Python?,def,0.8,speculative,greedy," In Python, a keyword that defines a function is `def`.
+
+The `def` keyword is used to define a function, and it takes one or more arguments that are passed to the",0.2518058717250824,0.45454545454545453,5.11
+Which keyword defines a function in Python?,def,0.8,ngram,greedy," In Python, the keyword that defines a function is `def`.
+
+Here is an example of how to define a function in Python:
+```
+def greet(name):
+   ",0.18588177859783173,0.16666666666666666,7.13
+Which keyword defines a function in Python?,def,0.8,autoregressive,greedy," In Python, the keyword that defines a function is `def`.
+
+Here is an example of how to define a function in Python:
+```
+def greet(name):
+   ",0.18588177859783173,,6.34
+What symbol is used for comments in Python?,#,0.8,speculative,greedy," In Python, the symbol used for comments is `#`.
+
+A comment in Python is a line that starts with the `#` symbol and continues until the end of the line. Any text that",0.3134743273258209,0.4716981132075472,5.58
+What symbol is used for comments in Python?,#,0.8,ngram,greedy," In Python, the symbol used for comments is `#`.
+
+A comment in Python is a line that starts with the `#` symbol and continues to the end of the line. Any text that",0.3159656822681427,0.125,6.45
+What symbol is used for comments in Python?,#,0.8,autoregressive,greedy," In Python, the symbol used for comments is `#`.
+
+A comment in Python is a line that starts with the `#` symbol and continues to the end of the line. Any text that",0.3159656822681427,,6.93
+What gas do plants absorb during photosynthesis?,Carbon dioxide,0.8,speculative,greedy," During photosynthesis, plants absorb three main gases: carbon dioxide (CO2), water (H2O), and oxygen (O2). The process of photosyn",0.46200525760650635,0.6136363636363636,5.5
+What gas do plants absorb during photosynthesis?,Carbon dioxide,0.8,ngram,greedy," During photosynthesis, plants absorb three main gases: carbon dioxide (CO2), water (H2O), and oxygen (O2).
+
+Here's",0.47648292779922485,0.25,6.97
+What gas do plants absorb during photosynthesis?,Carbon dioxide,0.8,autoregressive,greedy," During photosynthesis, plants absorb three main gases: carbon dioxide (CO2), water (H2O), and oxygen (O2).
+
+Here's",0.47648292779922485,,6.15
+What is the chemical symbol for water?,H2O,0.8,speculative,greedy, The chemical symbol for water is H2O.,0.6500151753425598,0.5,5.36
+What is the chemical symbol for water?,H2O,0.8,ngram,greedy," The chemical symbol for water is H2O.
+
+Water is a compound made up of two hydrogen atoms (H) and one oxygen atom (O). The chemical symbol",0.513545036315918,0.5,6.63
+What is the chemical symbol for water?,H2O,0.8,autoregressive,greedy," The chemical symbol for water is H2O.
+
+Water is a compound made up of two hydrogen atoms (H) and one oxygen atom (O). The chemical symbol",0.513545036315918,,6.87
+Who discovered penicillin?,Alexander Fleming,0.8,speculative,greedy, Penicillin was discovered by Scottish scientist Alexander Fleming in 1928. Fleming was working in his laboratory at St. Mary's Hospital in London,0.5301734805107117,0.6666666666666666,6.36
+Who discovered penicillin?,Alexander Fleming,0.8,ngram,greedy, Penicillin was discovered by Scottish scientist Alexander Fleming in 1928. Fleming was working in his laboratory at St. Mary's Hospital in London,0.5301734805107117,0.25,7.03
+Who discovered penicillin?,Alexander Fleming,0.8,autoregressive,greedy, Penicillin was discovered by Scottish scientist Alexander Fleming in 1928. Fleming was working in his laboratory at St. Mary's Hospital in London,0.5301734805107117,,6.22
+What is a synonym for 'happy'?,Joyful,0.8,speculative,greedy," There are many synonyms for the word ""happy"". Here are some options:
+
+1. Joyful
+2. Content
+3. Cheerful
+4. Jub",0.5195233821868896,0.5777777777777777,6.25
+What is a synonym for 'happy'?,Joyful,0.8,ngram,greedy," There are many synonyms for the word ""happy"". Here are some options:
+
+1. Joyful
+2. Content
+3. Cheerful
+4. Jub",0.5195233821868896,0.0,6.32
+What is a synonym for 'happy'?,Joyful,0.8,autoregressive,greedy," There are many synonyms for the word ""happy"". Here are some options:
+
+1. Joyful
+2. Content
+3. Cheerful
+4. Jub",0.5195233821868896,,6.96
+What is the output of print(2 ** 3) in Python?,8,0.8,speculative,greedy," In Python, the output of `print(2 ** 3)` is `8`.
+
+Explanation:
+
+In Python, the `**` operator is used to perform exponent",0.2995359003543854,0.6428571428571429,6.24
+What is the output of print(2 ** 3) in Python?,8,0.8,ngram,greedy," In Python, the output of `print(2 ** 3)` is `8`.
+
+Explanation:
+
+In Python, the `**` operator is used to perform exponent",0.2995359003543854,0.3125,7.68
+What is the output of print(2 ** 3) in Python?,8,0.8,autoregressive,greedy," In Python, the output of `print(2 ** 3)` is `8`.
+
+Explanation:
+
+In Python, the `**` operator is used to perform exponent",0.2995359003543854,,6.29
+What does CSS stand for?,Cascading Style Sheets,0.8,speculative,greedy, CSS stands for Cascading Style Sheets. It is a styling language used to control the layout and appearance of web pages. CSS is used in conjunction with HTML and JavaScript to create,0.29115670919418335,0.627906976744186,6.69
+What does CSS stand for?,Cascading Style Sheets,0.8,ngram,greedy, CSS stands for Cascading Style Sheets. It is a styling language used to control the layout and appearance of web pages. CSS is used in conjunction with HTML and JavaScript to create,0.29115670919418335,0.0,6.23
+What does CSS stand for?,Cascading Style Sheets,0.8,autoregressive,greedy, CSS stands for Cascading Style Sheets. It is a styling language used to control the layout and appearance of web pages. CSS is used in conjunction with HTML and JavaScript to create,0.29115670919418335,,6.86
+Which country is known for the Eiffel Tower?,France,0.8,speculative,greedy," The Eiffel Tower is located in Paris, France. It is one of the most iconic landmarks in the world and is located in the 7th arrondissement of Paris, on",0.3655346632003784,0.5777777777777777,5.83
+Which country is known for the Eiffel Tower?,France,0.8,ngram,greedy," The Eiffel Tower is located in Paris, France. It is one of the most iconic landmarks in the world and is located in the heart of Paris, France. The Eiff",0.37076622247695923,0.3125,7.8
+Which country is known for the Eiffel Tower?,France,0.8,autoregressive,greedy," The Eiffel Tower is located in Paris, France. It is one of the most iconic landmarks in the world and is located in the heart of Paris, France. The Eiff",0.37076622247695923,,6.37
+Who was the first President of the United States?,George Washington,0.8,speculative,multinomial," George Washington was the first President of the United States, serving from 1789 to 1797. He was elected as the first President under the United States Constitution and was",0.5889681577682495,0.5909090909090909,6.37
+Who was the first President of the United States?,George Washington,0.8,ngram,multinomial," The first President of the United States was George Washington. He was inaugurated as the country's first president on April 30, 1789, and served two terms in",0.5183889269828796,1.0,6.83
+Who was the first President of the United States?,George Washington,0.8,autoregressive,multinomial," The first President of the United States was George Washington. He was inaugurated as the country's first president on April 30, 1789, and served two terms in",0.5183889269828796,,6.78
+What is 15 percent of 200?,30,0.8,speculative,multinomial," To find 15 percent of 200, you can multiply 200 by 0.015.
+
+200 x 0.015",0.15144123136997223,0.3088235294117647,4.15
+What is 15 percent of 200?,30,0.8,ngram,multinomial," To find 15 percent of 200, you can multiply 200 by 0.15.
+
+200 x 0.15 = ",0.168513223528862,0.5,8.92
+What is 15 percent of 200?,30,0.8,autoregressive,multinomial," Sure! 15 percent of 200 is 30.
+
+To calculate, you can multiply 200 by 0.15, like this:
+",0.2823261618614197,,6.72
+What is the square root of 144?,12,0.8,speculative,multinomial, The square root of 144 is 12.,0.3954220414161682,0.3333333333333333,4.62
+What is the square root of 144?,12,0.8,ngram,multinomial, The square root of 144 is 12.,0.3954220414161682,0.3333333333333333,8.5
+What is the square root of 144?,12,0.8,autoregressive,multinomial, The square root of 144 is 12.,0.3954220414161682,,6.01
+Who was the leader of Nazi Germany?,Adolf Hitler,0.8,speculative,multinomial," The leader of Nazi Germany during World War II was Adolf Hitler.
+
+Adolf Hitler was born on April 20, 1889, in Braunau am Inn,",0.5884311199188232,0.6511627906976745,6.82
+Who was the leader of Nazi Germany?,Adolf Hitler,0.8,ngram,multinomial," The leader of Nazi Germany during World War II was Adolf Hitler.
+
+Adolf Hitler was born in Austria in 1889 and became the leader of the Nazi Party in",0.6121636629104614,0.4444444444444444,6.86
+Who was the leader of Nazi Germany?,Adolf Hitler,0.8,autoregressive,multinomial," The leader of Nazi Germany during World War II was Adolf Hitler.
+
+Adolf Hitler was born in Austria in 1889 and served in the German military during World War I",0.6285684108734131,,6.76
+What force keeps us on the ground?,Gravity,0.8,speculative,multinomial, The force that keeps us on the ground is called gravity. It is a fundamental force of nature that attracts objects towards each other with a force proportional to their mass and the distance between them.,0.5322452783584595,0.2222222222222222,3.49
+What force keeps us on the ground?,Gravity,0.8,ngram,multinomial," The force that keeps us on the ground is called gravity. Here are some reasons why:
+
+1. Gravity: Gravity is the force that pulls objects towards each other with an",0.507210373878479,0.25,6.74
+What force keeps us on the ground?,Gravity,0.8,autoregressive,multinomial," The force that keeps us on the ground is called gravity. Here are some reasons why we are kept on the ground by gravity:
+
+1. Gravity is a force that pulls objects",0.4584777355194092,,6.94
+How many planets are in the solar system?,Eight,0.8,speculative,multinomial," There are eight planets in the solar system:
+
+1. Mercury
+2. Venus
+3. Earth
+4. Mars
+5. Jupiter
+6. Saturn",0.3387947380542755,0.6511627906976745,6.36
+How many planets are in the solar system?,Eight,0.8,ngram,multinomial," The solar system consists of eight planets:
+
+1. Mercury
+2. Venus
+3. Earth
+4. Mars
+5. Jupiter
+6. Saturn
+",0.278439462184906,0.0,6.82
+How many planets are in the solar system?,Eight,0.8,autoregressive,multinomial," The solar system consists of eight planets:
+
+1. Mercury
+2. Venus
+3. Earth
+4. Mars
+5. Jupiter
+6. Saturn
+",0.278439462184906,,6.35
+What empire built the Colosseum?,Roman Empire,0.8,speculative,multinomial," The Colosseum, also known as the Flavian Amphitheatre, was built during the reign of the Roman Emperor Vespasian (96-79 AD",0.42131707072257996,0.4807692307692308,5.54
+What empire built the Colosseum?,Roman Empire,0.8,ngram,multinomial," The Colosseum, also known as the Flavian Amphitheatre, was built by the Roman Empire under the rule of the Flavian dynasty.
+
+The",0.4065268635749817,0.5,6.75
+What empire built the Colosseum?,Roman Empire,0.8,autoregressive,multinomial," The Colosseum, also known as the Flavian Amphitheatre, was built by the Roman Empire during the reign of Emperor Vespasian (96-7",0.4398563504219055,,6.77
+What is the integral of 1 over x?,ln(x),0.8,speculative,multinomial," The indefinite integral of 1/x is:
+
+$$\int\frac{1}{x}dx = \log|x| + C$$
+
+where C is",0.3962828814983368,0.36065573770491804,4.52
+What is the integral of 1 over x?,ln(x),0.8,ngram,multinomial," The integral of 1 over x is an improper integral and does not exist in the classical sense.
+
+The reason is that the function 1/x is not defined at x=",0.2905914783477783,0.5,7.52
+What is the integral of 1 over x?,ln(x),0.8,autoregressive,multinomial," The integral of 1 over x is a constant, and it is equal to:
+
+$$\int \frac{1}{x} dx = \lim_{x \to \infty",0.28200405836105347,,6.28
+What is the opposite of 'hot'?,Cold,0.8,speculative,multinomial," The opposite of ""hot"" can depend on the context, but here are some possible antonyms:
+
+1. Cold: This is the most straightforward opposite of ""hot"".
+",0.3686895966529846,0.28169014084507044,3.83
+What is the opposite of 'hot'?,Cold,0.8,ngram,multinomial," The opposite of ""hot"" can depend on the context. Here are some possible opposites:
+
+1. Cold: This is the most straightforward opposite of ""hot"". Cold refers to a",0.38983023166656494,0.16666666666666666,7.21
+What is the opposite of 'hot'?,Cold,0.8,autoregressive,multinomial," The opposite of ""hot"" can vary depending on the context. Here are some possible opposites of ""hot"":
+
+1. Cold: This is the most obvious opposite of ""hot"".",0.34213438630104065,,6.39
+What is the longest river in the world?,Nile,0.8,speculative,multinomial," The longest river in the world is the Nile River, which is approximately 4,160 miles (6,670 kilometers) long. It flows through 11",0.514586329460144,0.31343283582089554,4.19
+What is the longest river in the world?,Nile,0.8,ngram,multinomial," The longest river in the world is the Nile River, which is approximately 4,160 miles (6,670 kilometers) long.
+
+The Nile River",0.4911562204360962,0.375,7.28
+What is the longest river in the world?,Nile,0.8,autoregressive,multinomial," The longest river in the world is the Nile River, which is approximately 6,695 kilometers (4,160 miles) long.
+
+The Nile River",0.49394065141677856,,6.33
+What is the value of pi rounded to two decimal places?,3.14,0.8,speculative,multinomial, The value of pi rounded to two decimal places is 3.14.,0.4577765464782715,0.65,6.58
+What is the value of pi rounded to two decimal places?,3.14,0.8,ngram,multinomial, The value of pi rounded to two decimal places is 3.14.,0.4577765464782715,0.625,9.41
+What is the value of pi rounded to two decimal places?,3.14,0.8,autoregressive,multinomial, The value of pi rounded to two decimal places is 3.14.,0.4577765464782715,,6.84
+Which ocean is off the California coast?,Pacific Ocean,0.8,speculative,multinomial," The California coast is bordered by the Pacific Ocean.
+
+The Pacific Ocean is the largest of the Earth's five oceans, covering an area of approximately 155.",0.6379947662353516,0.2676056338028169,3.86
+Which ocean is off the California coast?,Pacific Ocean,0.8,ngram,multinomial," California is located on the Pacific Ocean.
+
+The Pacific Ocean is the largest of the Earth's five oceans, covering an area of approximately 155.6 million square",0.6206133961677551,0.0,6.25
+Which ocean is off the California coast?,Pacific Ocean,0.8,autoregressive,multinomial," The California coast is bordered by the Pacific Ocean. Here are the names of the oceans and seas that border California:
+
+* Pacific Ocean (to the west)
+*",0.5513242483139038,,6.9
+What does HTML stand for?,HyperText Markup Language,0.8,speculative,multinomial, HTML stands for Hypertext Markup Language. It is the standard markup language used to create web pages and consists of a series of elements that define the structure and content of a web page. HTML,0.5714206695556641,0.4716981132075472,5.21
+What does HTML stand for?,HyperText Markup Language,0.8,ngram,multinomial," HTML stands for Hypertext Markup Language. It is the standard language used to create web pages and communicate information to be displayed in a web browser. HTML is the backbone of a website,",0.5423147082328796,0.0,6.54
+What does HTML stand for?,HyperText Markup Language,0.8,autoregressive,multinomial," HTML stands for Hypertext Markup Language.
+
+HTML is the standard markup language used to create web pages. It is the language that defines the structure and layout of a web page, including",0.5870320200920105,,6.2
+What is the derivative of x squared?,2x,0.8,speculative,multinomial," The derivative of x squared is:
+
+$$ \frac{d}{dx} x^2 = 2x $$
+
+To see why this is true, use the definition of",0.25720706582069397,0.4444444444444444,5.18
+What is the derivative of x squared?,2x,0.8,ngram,multinomial," The derivative of x squared is 2x.
+
+To find the derivative of x squared, we can use the power rule of differentiation, which states that if y = x",0.35149767994880676,0.5,7.7
+What is the derivative of x squared?,2x,0.8,autoregressive,multinomial," To find the derivative of x squared, we can use the power rule of differentiation.
+
+The power rule states that if y = x^n, then the derivative of y with",0.17712104320526123,,6.66
+How many letters are in the English alphabet?,26,0.8,speculative,multinomial," The English alphabet has 26 letters:
+
+1. A
+2. B
+3. C
+4. D
+5. E
+6. F
+7. G
+",0.38284480571746826,0.5306122448979592,5.52
+How many letters are in the English alphabet?,26,0.8,ngram,multinomial," The English alphabet consists of 26 letters:
+
+1. A
+2. B
+3. C
+4. D
+5. E
+6. F
+7. G",0.3751324415206909,0.0,6.11
+How many letters are in the English alphabet?,26,0.8,autoregressive,multinomial," The English alphabet consists of 26 letters:
+
+1. A
+2. B
+3. C
+4. D
+5. E
+6. F
+7. G",0.3751324415206909,,6.82
+Which continent is Egypt part of?,Africa,0.8,speculative,multinomial, Egypt is located on the continent of Africa.,0.5834262371063232,0.375,4.99
+Which continent is Egypt part of?,Africa,0.8,ngram,multinomial, Egypt is a country located in the continent of Africa.,0.5787065625190735,0.0,6.4
+Which continent is Egypt part of?,Africa,0.8,autoregressive,multinomial, Egypt is part of the continent of Africa.,0.5876299142837524,,5.63
+In what year did World War II end?,1945,0.8,speculative,multinomial," World War II ended in 1945. The war officially ended on September 2, 1945, when the Japanese Instrument of Surrender was signed by represent",0.5391209125518799,0.49019607843137253,5.57
+In what year did World War II end?,1945,0.8,ngram,multinomial," World War II ended in 1945. The war ended when Japan officially surrendered to the Allied Powers on September 2, 1945, bringing an end",0.538153886795044,0.5,6.63
+In what year did World War II end?,1945,0.8,autoregressive,multinomial," World War II ended in 1945.
+
+The war in Europe ended on May 8, 1945, when Germany surrendered to the Allied Powers",0.5432429313659668,,6.66
+What part of speech is 'quickly'?,Adverb,0.8,speculative,multinomial," 'Quickly' is an adverb.
+
+Adverbs are words that modify or describe verbs, adjectives, or other adverbs, and tell us how,",0.5056970119476318,0.3548387096774194,4.38
+What part of speech is 'quickly'?,Adverb,0.8,ngram,multinomial," The word ""quickly"" is an adverb.",0.4869506359100342,0.0,6.87
+What part of speech is 'quickly'?,Adverb,0.8,autoregressive,multinomial," The word ""quickly"" is an adverb.",0.4869506359100342,,6.91
+What is the plural of 'mouse'?,Mice,0.8,speculative,multinomial," The plural of ""mouse"" is also ""mouse."" Mice is sometimes used as a plural, but it is less common.
+
+So, the correct plural form of """,0.5063517689704895,0.3283582089552239,4.2
+What is the plural of 'mouse'?,Mice,0.8,ngram,multinomial," The plural of ""mouse"" is ""mice.""",0.7081263065338135,0.0,6.79
+What is the plural of 'mouse'?,Mice,0.8,autoregressive,multinomial," The plural of ""mouse"" is ""mice.""",0.7081263065338135,,6.36
+What organ pumps blood through the body?,Heart,0.8,speculative,multinomial," The heart is the organ that pumps blood through the body.
+
+The heart is a muscular organ that circulates blood throughout the body, supplying oxygen and nutrients to",0.5121999979019165,0.4807692307692308,5.25
+What organ pumps blood through the body?,Heart,0.8,ngram,multinomial," The heart is the organ that pumps blood through the body. Here's a brief overview of the heart's function:
+
+The heart is a muscular organ that pumps",0.5077176094055176,0.38461538461538464,6.91
+What organ pumps blood through the body?,Heart,0.8,autoregressive,multinomial," The heart is the organ that pumps blood through the body. Here is a detailed explanation:
+
+The heart is a muscular organ located in the chest cavity that pumps blood",0.5047639012336731,,6.82
+What is the capital of Japan?,Tokyo,0.8,speculative,multinomial," The capital of Japan is Tokyo.
+
+Tokyo is the largest city in Japan and is located on the eastern coast of Honshu, the main island of Japan. It is a",0.6037158370018005,0.3088235294117647,4.08
+What is the capital of Japan?,Tokyo,0.8,ngram,multinomial," The capital of Japan is Tokyo. Located on the eastern coast of Honshu, the largest island of Japan, Tokyo is the country's political, economic, and cultural center. The",0.5956732034683228,0.08333333333333333,6.85
+What is the capital of Japan?,Tokyo,0.8,autoregressive,multinomial," The capital of Japan is Tokyo.
+
+Tokyo is the political, economic, and cultural center of Japan, and is located on the eastern coast of Honshu, the largest island",0.5681107640266418,,6.35
+Which keyword defines a function in Python?,def,0.8,speculative,multinomial," In Python, the keyword that defines a function is `def`.
+
+Here is an example of how to define a function in Python:
+```
+def greet(name):
+   ",0.18588177859783173,0.5416666666666666,5.91
+Which keyword defines a function in Python?,def,0.8,ngram,multinomial," In Python, the keyword ""def"" defines a function.
+
+Here is an example of how to define a function in Python:
+```
+def greet(name):
+    print",0.23397506773471832,0.16666666666666666,6.92
+Which keyword defines a function in Python?,def,0.8,autoregressive,multinomial," In Python, the keyword that defines a function is `def`.
+
+Here is an example of how to define a function using the `def` keyword:
+```
+def greet(",0.230057030916214,,6.65
+What symbol is used for comments in Python?,#,0.8,speculative,multinomial," In Python, the symbol used for comments is `#`. Whitespace characters before and after the `#` are ignored, so you can place comments anywhere in a line or even in the middle of",0.23133769631385803,0.1951219512195122,3.46
+What symbol is used for comments in Python?,#,0.8,ngram,multinomial," In Python, comments are indicated using the `#` symbol.
+
+For example:
+```
+# This is a comment
+```
+This will be ignored by the Python interpreter and will not",0.2767984867095947,0.25,6.61
+What symbol is used for comments in Python?,#,0.8,autoregressive,multinomial," In Python, the symbol used for comments is `#`. A comment can be any text after the `#` symbol, and it will be ignored by the interpreter when the code is executed.
+
+",0.3021157383918762,,6.08
+What gas do plants absorb during photosynthesis?,Carbon dioxide,0.8,speculative,multinomial," Plants absorb carbon dioxide (CO2) during photosynthesis.
+
+During photosynthesis, plants use energy from sunlight to convert carbon dioxide and water",0.5514237880706787,0.7,6.76
+What gas do plants absorb during photosynthesis?,Carbon dioxide,0.8,ngram,multinomial," During photosynthesis, plants absorb three main types of gases: carbon dioxide (CO2), water (H2O), and oxygen (O2). Here's",0.46700870990753174,0.25,6.65
+What gas do plants absorb during photosynthesis?,Carbon dioxide,0.8,autoregressive,multinomial," During photosynthesis, plants absorb three main gases: carbon dioxide (CO2), water (H2O), and light energy from the sun.
+
+Here's",0.47405514121055603,,6.3
+What is the chemical symbol for water?,H2O,0.8,speculative,multinomial," The chemical symbol for water is H2O.
+
+Water is composed of two hydrogen atoms (H) and one oxygen atom (O), so the chemical symbol for water represents",0.4097355306148529,0.29577464788732394,3.83
+What is the chemical symbol for water?,H2O,0.8,ngram,multinomial," The chemical symbol for water is H2O.
+
+Water is a chemical compound made up of two hydrogen atoms (H) and one oxygen atom (O). The symbol",0.5313152074813843,0.5,7.01
+What is the chemical symbol for water?,H2O,0.8,autoregressive,multinomial," The chemical symbol for water is H2O.
+
+The symbol H represents hydrogen, and the number 2O represents the two hydrogen atoms bonded to the oxygen atom.",0.5844239592552185,,6.14
+Who discovered penicillin?,Alexander Fleming,0.8,speculative,multinomial," Penicillin was discovered by Scottish scientist Alexander Fleming in 1928. In Fleming's laboratory, he observed that a mold, Penic",0.49256691336631775,0.42857142857142855,4.73
+Who discovered penicillin?,Alexander Fleming,0.8,ngram,multinomial," Penicillin was discovered by Scottish scientist Alexander Fleming in 1928. Here is a brief story of how he discovered penicillin:
+
+Alexander",0.4916079342365265,0.5,7.33
+Who discovered penicillin?,Alexander Fleming,0.8,autoregressive,multinomial, Penicillin was discovered by Scottish scientist Sir Alexander Fleming in 1928. Fleming was working in his laboratory at St. Mary's Hospital in,0.5311974287033081,,6.05
+What is a synonym for 'happy'?,Joyful,0.8,speculative,multinomial," There are many synonyms for the word ""happy"". Here are some options:
+
+1. Joyful
+2. Jubilant
+3. Elated
+4.",0.5417657494544983,0.44642857142857145,5.2
+What is a synonym for 'happy'?,Joyful,0.8,ngram,multinomial," There are many synonyms for the word ""happy"". Here are some options:
+
+1. Joyful
+2. Jubilant
+3. Cheerful
+4",0.513076663017273,0.0,6.16
+What is a synonym for 'happy'?,Joyful,0.8,autoregressive,multinomial," There are many synonyms for the word ""happy."" Here are some options:
+
+1. Joyful
+2. Content
+3. Cheerful
+4. Jub",0.5231319069862366,,6.67
+What is the output of print(2 ** 3) in Python?,8,0.8,speculative,multinomial," The output of `print(2 ** 3)` in Python is `8`.
+
+Explanation:
+
+When you write `2 ** 3`, it means ""2 raised",0.266886830329895,0.42592592592592593,4.73
+What is the output of print(2 ** 3) in Python?,8,0.8,ngram,multinomial," In Python, the output of `print(2 ** 3)` is `8`.
+
+Explanation:
+
+In Python, the `**` operator is used to perform exponent",0.2995359003543854,0.3125,7.21
+What is the output of print(2 ** 3) in Python?,8,0.8,autoregressive,multinomial," In Python, the output of `print(2 ** 3)` is `8`.
+
+Explanation:
+
+In Python, the `**` operator is used to perform exponent",0.2995359003543854,,6.25
+What does CSS stand for?,Cascading Style Sheets,0.8,speculative,multinomial, CSS stands for Cascading Style Sheets. It is a styling language used to control the layout and appearance of web pages. CSS allows developers to separate the presentation of a web page from,0.310464084148407,0.39655172413793105,4.57
+What does CSS stand for?,Cascading Style Sheets,0.8,ngram,multinomial, CSS stands for Cascading Style Sheets. It is a styling language used to control the appearance of a web page or document by separating the content from the presentation. CSS allows developers,0.3480207324028015,0.0,6.64
+What does CSS stand for?,Cascading Style Sheets,0.8,autoregressive,multinomial," CSS stands for Cascading Style Sheets. It is a programming language used for describing the presentation of web pages, including layout, colors, fonts, and other visual elements. CSS is used",0.3514670133590698,,6.24
+Which country is known for the Eiffel Tower?,France,0.8,speculative,multinomial," The Eiffel Tower is located in Paris, France. It is one of the most iconic landmarks in Paris and one of the most recognizable structures in the world. Built for",0.3608560562133789,0.49019607843137253,5.57
+Which country is known for the Eiffel Tower?,France,0.8,ngram,multinomial," The Eiffel Tower is located in Paris, France. It is one of the most iconic landmarks in the world and is located in the heart of Paris, France. The Eiff",0.37076622247695923,0.14285714285714285,6.65
+Which country is known for the Eiffel Tower?,France,0.8,autoregressive,multinomial," The Eiffel Tower is located in Paris, France.",0.3681046962738037,,6.65
