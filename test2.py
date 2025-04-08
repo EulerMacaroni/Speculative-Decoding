@@ -104,7 +104,7 @@ target.eval()
 
 end_tokens = [tokenizer.eos_token_id, tokenizer.convert_tokens_to_ids("<|eot_id|>")]
 df = pd.read_csv("data/QAwithTemp.csv")
-# df = df.head(1)
+df = df.head(1)
 
 processors = {
     "greedy": lambda temp: GreedyProcessor(temperature=temp),

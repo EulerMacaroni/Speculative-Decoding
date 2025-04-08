@@ -60,7 +60,7 @@ class TopKProcessor(MultinomialProcessor):
     def _process(self, logits: Tensor) -> Tensor:
         top_k = min(self.top_k, logits.size(-1))
         indices_to_remove = logits < torch.topk(logits, top_k, dim=-1)[0][..., -1, None]
-        logits[indices_to_remove] = -1e20
+        logits[indices_to_remove] = -1e4
         return logits
 
 
@@ -77,7 +77,7 @@ class NucleusProcessor(MultinomialProcessor):
         sorted_indices_to_remove = cumulative_probs > self.top_p
         sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
         sorted_indices_to_remove[..., 0] = 0
-        sorted_logits[sorted_indices_to_remove] = -1e20
+        sorted_logits[sorted_indices_to_remove] = -1e4
         logits = torch.gather(sorted_logits, -1, sorted_indices.argsort(-1))
         return logits
 
@@ -93,76 +93,75 @@ class TopKNucleusProcessor(MultinomialProcessor):
     def _process(self, logits: Tensor) -> Tensor:
         top_k = min(self.top_k, logits.size(-1))
         indices_to_remove = logits < torch.topk(logits, top_k, dim=-1)[0][..., -1, None]
-        logits[indices_to_remove] = -1e20
+        logits[indices_to_remove] = -1e4
         sorted_logits, sorted_indices = torch.sort(logits, descending=True)
         cumulative_probs = torch.cumsum(F.softmax(sorted_logits, dim=-1), dim=-1)
         sorted_indices_to_remove = cumulative_probs > self.top_p
         sorted_indices_to_remove[..., 1:] = sorted_indices_to_remove[..., :-1].clone()
         sorted_indices_to_remove[..., 0] = 0
-        sorted_logits[sorted_indices_to_remove] = -1e20
+        sorted_logits[sorted_indices_to_remove] = -1e4
         logits = torch.gather(sorted_logits, -1, sorted_indices.argsort(-1))
         return logits
 
-
-class TypicalProcessor(LogitsProcessor):
-    """Typical Sampling: Select tokens based on how close their information content is to the expected information."""
-
-    def __init__(self, temperature: float = 1.0, mass: float = 0.9):
-        super().__init__(temperature)
-        self.mass = mass
-
-    def _process(self, logits: Tensor) -> Tensor:
-        """
-        Process logits using Typical Sampling.
-        All tokens with atypical information content are suppressed.
-        """
-        logits = logits.view(
-            -1, logits.size(-1)
-        )  # Support inputs like [1, gamma, vocab]
-        batch_size, vocab_size = logits.shape
-        device = logits.device
-
-        # Create a new tensor to store the processed logits
-        new_logits = logits.clone()
-
-        # Process each item in the batch
-        for b in range(batch_size):
-            # Calculate token probabilities
-            probs = F.softmax(logits[b] / self.temperature, dim=-1)
-
-            # Calculate entropy
-            log_probs = torch.log(probs + 1e-10)
-            expected_entropy = -torch.sum(probs * log_probs, dim=-1)
-
-            # Calculate each token's contribution to entropy
-            token_entropies = -log_probs
-
-            # Calculate how far each token is from the expected entropy
-            token_divergence = torch.abs(token_entropies - expected_entropy)
-
-            # Sort by divergence
-            sorted_divergence, sorted_indices = torch.sort(token_divergence, dim=-1)
-            sorted_probs = probs.gather(-1, sorted_indices)
-
-            # Keep tokens until we reach the desired probability mass
-            cumulative_probs = torch.cumsum(sorted_probs, dim=-1)
-            indices_to_keep = cumulative_probs <= self.mass
-
-            # If nothing is kept, keep at least one token
-            if not torch.any(indices_to_keep):
-                indices_to_keep[0] = True
-
-            # Create a mask for the tokens to keep
-            masked_divergence = torch.full_like(token_divergence, float("inf"))
-
-            # Gather indices to keep and map back to original positions
-            keep_indices = sorted_indices[indices_to_keep]
-            masked_divergence.scatter_(-1, keep_indices, 0)
-
-            # Apply the mask to the logits
-            new_logits[b][masked_divergence == float("inf")] = -1e20
-
-        return new_logits.view(*logits.shape)  # Return with the same shape
+    # class TypicalProcessor(LogitsProcessor):
+    #     """Typical Sampling: Select tokens based on how close their information content is to the expected information."""
+    #
+    #     def __init__(self, temperature: float = 1.0, mass: float = 0.9):
+    #         super().__init__(temperature)
+    #         self.mass = mass
+    #
+    #     def _process(self, logits: Tensor) -> Tensor:
+    #         """
+    #         Process logits using Typical Sampling.
+    #         All tokens with atypical information content are suppressed.
+    #         """
+    #         logits = logits.view(
+    #             -1, logits.size(-1)
+    #         )  # Support inputs like [1, gamma, vocab]
+    #         batch_size, vocab_size = logits.shape
+    #         device = logits.device
+    #
+    #         # Create a new tensor to store the processed logits
+    #         new_logits = logits.clone()
+    #
+    #         # Process each item in the batch
+    #         for b in range(batch_size):
+    #             # Calculate token probabilities
+    #             probs = F.softmax(logits[b] / self.temperature, dim=-1)
+    #
+    #             # Calculate entropy
+    #             log_probs = torch.log(probs + 1e-10)
+    #             expected_entropy = -torch.sum(probs * log_probs, dim=-1)
+    #
+    #             # Calculate each token's contribution to entropy
+    #             token_entropies = -log_probs
+    #
+    #             # Calculate how far each token is from the expected entropy
+    #             token_divergence = torch.abs(token_entropies - expected_entropy)
+    #
+    #             # Sort by divergence
+    #             sorted_divergence, sorted_indices = torch.sort(token_divergence, dim=-1)
+    #             sorted_probs = probs.gather(-1, sorted_indices)
+    #
+    #             # Keep tokens until we reach the desired probability mass
+    #             cumulative_probs = torch.cumsum(sorted_probs, dim=-1)
+    #             indices_to_keep = cumulative_probs <= self.mass
+    #
+    #             # If nothing is kept, keep at least one token
+    #             if not torch.any(indices_to_keep):
+    #                 indices_to_keep[0] = True
+    #
+    #             # Create a mask for the tokens to keep
+    #             masked_divergence = torch.full_like(token_divergence, float("inf"))
+    #
+    #             # Gather indices to keep and map back to original positions
+    #             keep_indices = sorted_indices[indices_to_keep]
+    #             masked_divergence.scatter_(-1, keep_indices, 0)
+    #
+    #             # Apply the mask to the logits
+    #             new_logits[b][masked_divergence == float("inf")] = -1e20
+    #
+    #         return new_logits.view(*logits.shape)  # Return with the same shape
 
     def sample(self, probs: Tensor) -> Tensor:
         """Standard multinomial sampling from filtered probabilities."""
@@ -195,5 +194,5 @@ class TwoStageSamplingProcessor(MultinomialProcessor):
         perturbed_logits = top_logits + noise
 
         # Reconstruct full logits tensor
-        perturbed_logits_full = torch.full_like(logits, -1e20)
+        perturbed_logits_full = torch.full_like(logits, -1e4)
         return perturbed_logits_full.scatter(-1, top_indices, perturbed_logits)
