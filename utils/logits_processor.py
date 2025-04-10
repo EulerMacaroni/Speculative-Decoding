@@ -197,3 +197,43 @@ class TwoStageSamplingProcessor(MultinomialProcessor):
         perturbed_logits_full.scatter_(-1, top_indices, perturbed_logits)
 
         return perturbed_logits_full
+
+
+class DynamicTemperatureProcessor(LogitsProcessor):
+    """Dynamic Temperature Rescaling: Dynamically adjusts temperature based on model confidence."""
+
+    def __init__(
+        self, base_temperature: float = 1.0, confidence_threshold: float = 0.5
+    ):
+        super().__init__(base_temperature)
+        self.base_temperature = base_temperature
+        self.confidence_threshold = confidence_threshold
+
+    def _process(self, logits: Tensor) -> Tensor:
+        logits = logits.to(torch.float32)
+        logits = torch.clamp(logits, min=-1000, max=1000)  # for 8 or 4 bit
+
+        # Calculate the standard deviation of logits
+        std_dev = torch.std(logits, dim=-1, keepdim=True)
+
+        # Dynamically adjust temperature based on standard deviation
+        if std_dev.item() > self.confidence_threshold:
+            # High confidence: Reduce temperature
+            temperature_scaling_factor = (
+                std_dev - self.confidence_threshold
+            ).item() / (1 - self.confidence_threshold)
+            new_temperature = self.base_temperature * (1 - temperature_scaling_factor)
+        else:
+            # Low confidence: Increase temperature
+            temperature_scaling_factor = (
+                self.confidence_threshold - std_dev
+            ).item() / self.confidence_threshold
+            new_temperature = self.base_temperature + temperature_scaling_factor
+        new_temperature = max(0.001, new_temperature)
+        new_temperature = min(10, new_temperature)
+        # Apply temperature scaling
+        logits = logits / new_temperature
+        return logits
+
+    def sample(self, probs: Tensor) -> Tensor:
+        return torch.multinomial(probs, num_samples=1)
