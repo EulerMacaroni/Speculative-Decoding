@@ -11,7 +11,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, QuantoConfig
 from ngram_assisted import (NGramStorage, OneLevelNGramStorage,
                             ngram_assisted_speculative_generate)
 from sampling import autoregressive_generate, speculative_generate
-from utils.logits_processor import (GreedyProcessor, MultinomialProcessor,
+from utils.logits_processor import (DynamicTemperatureProcessor,
+                                    GreedyProcessor, MultinomialProcessor,
                                     NucleusProcessor, TopKNucleusProcessor,
                                     TopKProcessor, TwoStageSamplingProcessor)
 
@@ -69,6 +70,13 @@ class InferenceCLI:
                     "temperature": float,
                     "top_k": int,
                     "noise_scale": float,
+                },
+            },
+            "dynamic_temperature": {
+                "processor": DynamicTemperatureProcessor,
+                "building_args": {
+                    "temperature": float,
+                    "confidence_threshold": float,
                 },
             },
         }

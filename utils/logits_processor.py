@@ -31,25 +31,6 @@ class LogitsProcessor(abc.ABC):
         pass
 
 
-# class LogitsProcessor(abc.ABC):
-#     """Logits processors for sampling."""
-#
-#     def __init__(self, temperature: float):
-#         self.temperature = temperature
-#
-#     def __call__(self, logits: Tensor) -> Tensor:
-#         proc = self._process(logits)
-#         return F.softmax(proc / self.temperature, dim=-1)
-#
-#     @abc.abstractmethod
-#     def _process(self, logits: Tensor) -> Tensor:
-#         pass
-#
-#     @abc.abstractmethod
-#     def sample(self, probs: Tensor) -> Tensor:
-#         pass
-
-
 class GreedyProcessor(LogitsProcessor):
     """Greedy: Most probable token."""
 
@@ -202,36 +183,52 @@ class TwoStageSamplingProcessor(MultinomialProcessor):
 class DynamicTemperatureProcessor(LogitsProcessor):
     """Dynamic Temperature Rescaling: Dynamically adjusts temperature based on model confidence."""
 
-    def __init__(
-        self, base_temperature: float = 1.0, confidence_threshold: float = 0.5
-    ):
-        super().__init__(base_temperature)
-        self.base_temperature = base_temperature
+    def __init__(self, temperature: float = 1.0, confidence_threshold: float = 0.5):
+        super().__init__(temperature)
+        self.temperature = temperature
         self.confidence_threshold = confidence_threshold
 
     def _process(self, logits: Tensor) -> Tensor:
         logits = logits.to(torch.float32)
         logits = torch.clamp(logits, min=-1000, max=1000)  # for 8 or 4 bit
 
-        # Calculate the standard deviation of logits
+        # calculate the standard deviation of logits
         std_dev = torch.std(logits, dim=-1, keepdim=True)
 
-        # Dynamically adjust temperature based on standard deviation
-        if std_dev.item() > self.confidence_threshold:
-            # High confidence: Reduce temperature
-            temperature_scaling_factor = (
-                std_dev - self.confidence_threshold
-            ).item() / (1 - self.confidence_threshold)
-            new_temperature = self.base_temperature * (1 - temperature_scaling_factor)
+        # check if we have a batch
+        if len(std_dev.shape) > 1:
+            # we calculate the mean of std dev
+            mean_std_dev = torch.mean(std_dev, dim=0)
+            # dynamically adjust temperature based on standard deviation
+            if mean_std_dev.item() > self.confidence_threshold:
+                # high confidence: reduce temperature
+                temperature_scaling_factor = (
+                    mean_std_dev - self.confidence_threshold
+                ).item() / (1 - self.confidence_threshold)
+                new_temperature = self.temperature * (1 - temperature_scaling_factor)
+            else:
+                # low confidence: increase temperature
+                temperature_scaling_factor = (
+                    self.confidence_threshold - mean_std_dev
+                ).item() / self.confidence_threshold
+                new_temperature = self.temperature + temperature_scaling_factor
         else:
-            # Low confidence: Increase temperature
-            temperature_scaling_factor = (
-                self.confidence_threshold - std_dev
-            ).item() / self.confidence_threshold
-            new_temperature = self.base_temperature + temperature_scaling_factor
+            # dynamically adjust temperature based on standard deviation
+            if std_dev.item() > self.confidence_threshold:
+                # high confidence: reduce temperature
+                temperature_scaling_factor = (
+                    std_dev - self.confidence_threshold
+                ).item() / (1 - self.confidence_threshold)
+                new_temperature = self.temperature * (1 - temperature_scaling_factor)
+            else:
+                # low confidence: increase temperature
+                temperature_scaling_factor = (
+                    self.confidence_threshold - std_dev
+                ).item() / self.confidence_threshold
+                new_temperature = self.temperature + temperature_scaling_factor
         new_temperature = max(0.001, new_temperature)
         new_temperature = min(10, new_temperature)
-        # Apply temperature scaling
+        # apply temperature scaling
         logits = logits / new_temperature
         return logits
 
